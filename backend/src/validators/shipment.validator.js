@@ -1,23 +1,24 @@
 const { body, param, query } = require("express-validator");
 const { validate } = require("../middlewares/validate.middleware");
 
-const addressValidation = {
-    street: body("pickupAddress.street")
+const addressValidation = (prefix) => ({
+    street: body(`${prefix}.street`)
         .notEmpty()
         .withMessage("Street is required"),
-    city: body("pickupAddress.city").notEmpty().withMessage("City is required"),
-    state: body("pickupAddress.state")
+    city: body(`${prefix}.city`).notEmpty().withMessage("City is required"),
+    state: body(`${prefix}.state`)
         .notEmpty()
         .withMessage("State is required"),
-    pincode: body("pickupAddress.pincode")
-        .isLength({ min: 6, max: 6 })
+    pincode: body(`${prefix}.pincode`)
+        .matches(/^\d{6}$/)
         .withMessage("Pincode must be 6 digits"),
-};
+});
 
 const createBookingValidation = [
     body("pickupAddress").isObject().withMessage("Pickup address required"),
     body("deliveryAddress").isObject().withMessage("Delivery address required"),
-    ...Object.values(addressValidation).map((v) => v), // we'll simplify in code
+    ...Object.values(addressValidation("pickupAddress")),
+    ...Object.values(addressValidation("deliveryAddress")),
     body("goodsType").notEmpty().withMessage("Goods type required"),
     body("weight")
         .isNumeric({ min: 0.1 })

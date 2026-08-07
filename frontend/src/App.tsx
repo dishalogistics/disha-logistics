@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
 import Navbar from "@/components/layout/Navbar";
@@ -19,6 +19,10 @@ const queryClient = new QueryClient({
 function App() {
   const { isAuthenticated, user } = useAuthStore();
   const navigate = useNavigate();
+  const location = useLocation();
+  const isPortal = ["/customer", "/transporter", "/admin"].some((path) =>
+    location.pathname.startsWith(path),
+  );
 
   // Simple redirect logic (you can enhance)
   useEffect(() => {
@@ -45,11 +49,11 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <div className="min-h-screen flex flex-col">
-        <Navbar />
+        {!isPortal && <Navbar />}
         <main className="flex-1">
           <Outlet />
         </main>
-        <Footer />
+        {!isPortal && <Footer />}
       </div>
       <Toaster position="top-right" />
     </QueryClientProvider>

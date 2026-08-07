@@ -20,4 +20,9 @@ module.exports = {
     smtpFrom: process.env.SMTP_FROM,
 
     logLevel: process.env.LOG_LEVEL || 'info',
+
+    defaultAdminEmail: process.env.DEFAULT_ADMIN_EMAIL,
+    defaultAdminPassword: process.env.DEFAULT_ADMIN_PASSWORD,
+    defaultAdminFirstName: process.env.DEFAULT_ADMIN_FIRST_NAME || 'Disha',
+    defaultAdminLastName: process.env.DEFAULT_ADMIN_LAST_NAME || 'Administrator',
 };

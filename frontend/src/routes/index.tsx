@@ -21,6 +21,9 @@ import Marketplace from "@/pages/Transporter/Marketplace";
 import AdminDashboard from "@/pages/Admin/Dashboard";
 import AdminUsers from "@/pages/Admin/Users";
 import AdminShipments from "@/pages/Admin/Shipments";
+import PortalLayout from "@/components/layout/PortalLayout";
+import Billing from "@/pages/Shared/Billing";
+import EWayBill from "@/pages/Shared/EWayBill";
 
 const router = createBrowserRouter([
     {
@@ -41,9 +44,11 @@ const router = createBrowserRouter([
                 path: "customer",
                 element: <ProtectedRoute allowedRoles={["CUSTOMER"]} />,
                 children: [
-                    { path: "dashboard", element: <CustomerDashboard /> },
-                    { path: "book", element: <BookShipment /> },
-                    { path: "tracking/:id", element: <Tracking /> },
+                    { element: <PortalLayout />, children: [
+                        { path: "dashboard", element: <CustomerDashboard /> },
+                        { path: "book", element: <BookShipment /> },
+                        { path: "tracking/:id", element: <Tracking /> },
+                    ]},
                 ],
             },
             // Transporter routes
@@ -51,8 +56,11 @@ const router = createBrowserRouter([
                 path: "transporter",
                 element: <ProtectedRoute allowedRoles={["TRANSPORTER"]} />,
                 children: [
-                    { path: "dashboard", element: <TransporterDashboard /> },
-                    { path: "marketplace", element: <Marketplace /> },
+                    { element: <PortalLayout />, children: [
+                        { path: "dashboard", element: <TransporterDashboard /> },
+                        { path: "marketplace", element: <Marketplace /> },
+                        { path: "billing", element: <Billing /> },
+                    ]},
                 ],
             },
             // Admin routes
@@ -60,9 +68,13 @@ const router = createBrowserRouter([
                 path: "admin",
                 element: <ProtectedRoute allowedRoles={["ADMIN", "SUPER_ADMIN"]} />,
                 children: [
-                    { path: "dashboard", element: <AdminDashboard /> },
-                    { path: "users", element: <AdminUsers /> },
-                    { path: "shipments", element: <AdminShipments /> },
+                    { element: <PortalLayout />, children: [
+                        { path: "dashboard", element: <AdminDashboard /> },
+                        { path: "users", element: <AdminUsers /> },
+                        { path: "shipments", element: <AdminShipments /> },
+                        { path: "billing", element: <Billing /> },
+                        { path: "e-way-bill", element: <EWayBill /> },
+                    ]},
                 ],
             },
         ],

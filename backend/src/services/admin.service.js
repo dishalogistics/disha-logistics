@@ -3,8 +3,27 @@ const ShipmentRepository = require("../repositories/shipment.repository");
 const AppError = require("../utils/AppError");
 const roles = require("../constants/roles");
 const shipmentStatus = require("../constants/shipmentStatus");
+const Invoice = require('../models/billing/Invoice');
 
 class AdminService {
+    async createUser(userData) {
+        const existing = await UserRepository.findByEmail(userData.email);
+        if (existing) throw new AppError('Email already registered', 409);
+        const user = await UserRepository.create({
+            firstName: userData.firstName,
+            lastName: userData.lastName || '',
+            email: userData.email,
+            phoneNumber: userData.phoneNumber,
+            password: userData.password,
+            role: userData.role,
+            isEmailVerified: true,
+            isActive: userData.isActive !== false,
+        });
+        const userObject = user.toObject();
+        delete userObject.password;
+        return userObject;
+    }
+
     // Get all users with pagination and filters
     async getUsers(page = 1, limit = 10, filters = {}) {
         const skip = (page - 1) * limit;
@@ -46,9 +65,17 @@ class AdminService {
         if (updateData.role && !Object.values(roles).includes(updateData.role)) {
             throw new AppError("Invalid role", 400);
         }
+        if (updateData.role === roles.SUPER_ADMIN) {
+            throw new AppError('SUPER_ADMIN accounts can only be created by the secure bootstrap process', 403);
+        }
         // if (updateData.isActive !== undefined) user.isActive = updateData.isActive;
         // we can also update other fields
-        const updated = await UserRepository.update(userId, updateData);
+        // Passwords and internal login fields are only changed through dedicated auth flows.
+        const allowedFields = ['firstName', 'lastName', 'phoneNumber', 'role', 'isActive'];
+        const safeUpdate = Object.fromEntries(
+            Object.entries(updateData).filter(([key]) => allowedFields.includes(key)),
+        );
+        const updated = await UserRepository.update(userId, safeUpdate);
         return updated;
     }
 
@@ -113,9 +140,9 @@ class AdminService {
                 ],
             },
         });
-        const totalRevenue = await ShipmentRepository.model.aggregate([
-            { $match: { paymentStatus: "Paid" } },
-            { $group: { _id: null, total: { $sum: "$finalPrice" } } },
+        const totalRevenue = await Invoice.aggregate([
+            { $match: { status: 'PAID' } },
+            { $group: { _id: null, total: { $sum: '$totalAmount' } } },
         ]);
         const revenue = totalRevenue.length > 0 ? totalRevenue[0].total : 0;
 

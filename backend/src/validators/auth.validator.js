@@ -8,7 +8,7 @@ const registerValidation = [
     body('password').isLength({ min: 8 }).withMessage('Password must be at least 8 characters'),
     body('role')
         .optional()
-        .isIn(Object.values(roles))
+        .isIn([roles.CUSTOMER, roles.TRANSPORTER])
         .withMessage('Invalid role'),
     validate,
 ];

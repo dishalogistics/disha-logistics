@@ -14,8 +14,21 @@ const {
 router.use(authenticate);
 
 // Customer routes
-router.post("/", createBookingValidation, ShipmentController.createBooking);
-router.get("/my", paginationValidation, ShipmentController.getMyShipments);
+router.post(
+    "/",
+    authorize(roles.CUSTOMER, roles.ADMIN, roles.SUPER_ADMIN),
+    createBookingValidation,
+    ShipmentController.createBooking,
+);
+router.get(
+    "/my",
+    authorize(roles.CUSTOMER, roles.ADMIN, roles.SUPER_ADMIN),
+    paginationValidation,
+    ShipmentController.getMyShipments,
+);
+
+// Stats must be registered before the /:id route.
+router.get("/stats/overview", ShipmentController.getStats);
 
 // Transporter routes
 router.get(
@@ -50,8 +63,5 @@ router.patch(
     assignValidation,
     ShipmentController.assignDriver,
 );
-
-// Stats
-router.get("/stats/overview", ShipmentController.getStats);
 
 module.exports = router;

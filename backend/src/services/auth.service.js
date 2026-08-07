@@ -11,7 +11,10 @@ class AuthService {
         const existing = await UserRepository.findByEmail(userData.email);
         if (existing) throw new AppError('Email already registered', 409);
 
-        const user = await UserRepository.create(userData);
+        // Public signup may create business customers or transporters only.
+        // Staff roles are created by an administrator, never from this endpoint.
+        const role = userData.role === roles.TRANSPORTER ? roles.TRANSPORTER : roles.CUSTOMER;
+        const user = await UserRepository.create({ ...userData, role });
 
         const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
         const expiresAt = new Date(Date.now() + 10 * 60 * 1000);

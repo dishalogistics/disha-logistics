@@ -2,6 +2,11 @@ const AdminService = require("../services/admin.service");
 const ApiResponse = require("../utils/ApiResponse");
 const asyncHandler = require("../utils/asyncHandler");
 
+exports.createUser = asyncHandler(async (req, res) => {
+    const user = await AdminService.createUser(req.body);
+    ApiResponse.success(res, "User created", user, 201);
+});
+
 exports.getUsers = asyncHandler(async (req, res) => {
     const { page = 1, limit = 10, role, isActive, search } = req.query;
     const filters = { role, isActive, search };

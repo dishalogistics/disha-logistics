@@ -99,8 +99,6 @@ userSchema.virtual('isLocked').get(function () {
     return !!(this.lockUntil && this.lockUntil > Date.now());
 });
 
-userSchema.index({ email: 1 });
-userSchema.index({ phoneNumber: 1 });
 userSchema.index({ role: 1, isActive: 1 });
 userSchema.index({ createdAt: -1 });
 userSchema.index({ firstName: 1, lastName: 1 });

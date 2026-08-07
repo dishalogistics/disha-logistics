@@ -4,6 +4,7 @@ const connectDatabase = require('./config/database');
 const { initializeSocket } = require('./config/socket');
 const env = require('./config/env');
 const logger = require('./config/logger');
+const { ensureDefaultAdmin } = require('./services/bootstrap.service');
 
 const server = http.createServer(app);
 
@@ -12,6 +13,7 @@ initializeSocket(server);
 
 const startServer = async () => {
     await connectDatabase();
+    await ensureDefaultAdmin();
 
     server.listen(env.port, () => {
         logger.info(`Server running on port ${env.port} in ${env.nodeEnv} mode`);

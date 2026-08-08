@@ -17,6 +17,7 @@ import Tracking from "@/pages/Customer/Tracking";
 // Transporter
 import TransporterDashboard from "@/pages/Transporter/Dashboard";
 import Marketplace from "@/pages/Transporter/Marketplace";
+
 // Admin
 import AdminDashboard from "@/pages/Admin/Dashboard";
 import AdminUsers from "@/pages/Admin/Users";
@@ -58,6 +59,7 @@ const router = createBrowserRouter([
                 children: [
                     { element: <PortalLayout />, children: [
                         { path: "dashboard", element: <TransporterDashboard /> },
+                        { path: "book", element: <BookShipment /> },
                         { path: "marketplace", element: <Marketplace /> },
                         { path: "billing", element: <Billing /> },
                     ]},

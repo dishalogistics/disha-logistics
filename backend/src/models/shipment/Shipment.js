@@ -1,153 +1,283 @@
-const mongoose = require('mongoose');
-const shipmentStatus = require('../../constants/shipmentStatus');
+const mongoose = require("mongoose");
+const shipmentStatus = require("../../constants/shipmentStatus");
+
+const addressSchema = new mongoose.Schema(
+    {
+        street: {
+            type: String,
+            required: true,
+            trim: true,
+        },
+
+        city: {
+            type: String,
+            required: true,
+            trim: true,
+        },
+
+        state: {
+            type: String,
+            required: true,
+            trim: true,
+        },
+
+        pincode: {
+            type: String,
+            required: true,
+            match: /^\d{6}$/,
+        },
+
+        country: {
+            type: String,
+            default: "India",
+            trim: true,
+        },
+
+        coordinates: {
+            lat: {
+                type: Number,
+            },
+
+            lng: {
+                type: Number,
+            },
+        },
+    },
+    {
+        _id: false,
+    }
+);
+
+const dimensionsSchema = new mongoose.Schema(
+    {
+        length: {
+            type: Number,
+            default: 0,
+            min: 0,
+        },
+
+        width: {
+            type: Number,
+            default: 0,
+            min: 0,
+        },
+
+        height: {
+            type: Number,
+            default: 0,
+            min: 0,
+        },
+
+        unit: {
+            type: String,
+            enum: ["cm", "in"],
+            default: "cm",
+        },
+    },
+    {
+        _id: false,
+    }
+);
+
+const statusHistorySchema = new mongoose.Schema(
+    {
+        status: {
+            type: String,
+            enum: Object.values(shipmentStatus),
+            required: true,
+        },
+
+        timestamp: {
+            type: Date,
+            default: Date.now,
+        },
+
+        note: {
+            type: String,
+            trim: true,
+            maxlength: 200,
+        },
+    },
+    {
+        _id: false,
+    }
+);
 
 const shipmentSchema = new mongoose.Schema(
     {
-        // Customer who booked
         customer: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'User',
+            ref: "User",
             required: true,
             index: true,
         },
-        // Transporter assigned (if any)
+
         transporter: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'User',
+            ref: "User",
             index: true,
+            default: null,
         },
-        // Driver assigned (if any)
+
         driver: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'User',
+            ref: "User",
             index: true,
+            default: null,
         },
-        // Addresses
+
         pickupAddress: {
-            street: { type: String, required: true },
-            city: { type: String, required: true },
-            state: { type: String, required: true },
-            pincode: { type: String, required: true },
-            country: { type: String, default: 'India' },
-            coordinates: {
-                lat: Number,
-                lng: Number,
-            },
+            type: addressSchema,
+            required: true,
         },
+
         deliveryAddress: {
-            street: { type: String, required: true },
-            city: { type: String, required: true },
-            state: { type: String, required: true },
-            pincode: { type: String, required: true },
-            country: { type: String, default: 'India' },
-            coordinates: {
-                lat: Number,
-                lng: Number,
-            },
+            type: addressSchema,
+            required: true,
         },
-        // Goods details
+
         goodsType: {
             type: String,
             required: true,
-            enum: ['Electronics', 'Furniture', 'Food', 'Clothing', 'Documents', 'Other'],
+            enum: [
+                "Electronics",
+                "Furniture",
+                "Food",
+                "Clothing",
+                "Documents",
+                "Other",
+            ],
+            trim: true,
         },
+
         weight: {
             type: Number,
             required: true,
-            min: 0,
+            min: 0.1,
         },
+
         dimensions: {
-            length: { type: Number, default: 0 },
-            width: { type: Number, default: 0 },
-            height: { type: Number, default: 0 },
-            unit: { type: String, enum: ['cm', 'in'], default: 'cm' },
+            type: dimensionsSchema,
+            default: () => ({}),
         },
-        // Logistics preferences
+
         vehicleType: {
             type: String,
-            enum: ['Mini Truck', '14FT', '17FT', 'Container', 'Trailer'],
             required: true,
+            enum: [
+                "Mini Truck",
+                "14FT",
+                "17FT",
+                "Container",
+                "Trailer",
+            ],
         },
+
         deliverySpeed: {
             type: String,
-            enum: ['Standard', 'Express', 'Same Day'],
-            default: 'Standard',
+            enum: [
+                "Standard",
+                "Express",
+                "Same Day",
+            ],
+            default: "Standard",
         },
+
         insurance: {
             type: Boolean,
             default: false,
         },
+
         couponCode: {
             type: String,
             trim: true,
+            default: "",
         },
+
         notes: {
             type: String,
             trim: true,
             maxlength: 500,
+            default: "",
         },
-        // Pricing
+
         basePrice: {
             type: Number,
             required: true,
             min: 0,
         },
+
         discount: {
             type: Number,
             default: 0,
             min: 0,
         },
+
         finalPrice: {
             type: Number,
             required: true,
             min: 0,
         },
+
         paymentStatus: {
             type: String,
-            enum: ['Pending', 'Paid', 'Failed'],
-            default: 'Pending',
+            enum: [
+                "Pending",
+                "Paid",
+                "Failed",
+            ],
+            default: "Pending",
         },
+
         paymentId: {
             type: String,
             trim: true,
+            default: null,
         },
-        // Tracking
+
         status: {
             type: String,
             enum: Object.values(shipmentStatus),
             default: shipmentStatus.PENDING,
             index: true,
         },
-        statusHistory: [
-            {
-                status: {
-                    type: String,
-                    enum: Object.values(shipmentStatus),
-                },
-                timestamp: {
-                    type: Date,
-                    default: Date.now,
-                },
-                note: String,
-            },
-        ],
-        // E-POD (Proof of Delivery)
-        pod: {
-            signature: { type: String }, // URL or base64
-            image: { type: String }, // URL
-            deliveredAt: Date,
-            receivedBy: String,
+
+        statusHistory: {
+            type: [statusHistorySchema],
+            default: [],
         },
-        // Tracking info (real-time)
+
+        pod: {
+            signature: {
+                type: String,
+            },
+
+            image: {
+                type: String,
+            },
+
+            deliveredAt: {
+                type: Date,
+            },
+
+            receivedBy: {
+                type: String,
+                trim: true,
+            },
+        },
+
         currentLocation: {
             lat: Number,
             lng: Number,
             updatedAt: Date,
         },
-        // Timestamps
+
         pickupScheduledAt: Date,
+
         pickedUpAt: Date,
+
         deliveredAt: Date,
+
         cancelledAt: Date,
     },
     {
@@ -156,23 +286,38 @@ const shipmentSchema = new mongoose.Schema(
     }
 );
 
-// Indexes for performance
-shipmentSchema.index({ customer: 1, createdAt: -1 });
-shipmentSchema.index({ transporter: 1, status: 1 });
-shipmentSchema.index({ status: 1, createdAt: -1 });
-shipmentSchema.index({ 'pickupAddress.pincode': 1 });
-shipmentSchema.index({ 'deliveryAddress.pincode': 1 });
-
-// Pre-save hook to add status history
-shipmentSchema.pre('save', function (next) {
-    if (this.isModified('status')) {
-        this.statusHistory.push({
-            status: this.status,
-            timestamp: new Date(),
-            note: `Status changed to ${this.status}`,
-        });
-    }
-    next();
+// Indexes
+shipmentSchema.index({
+    customer: 1,
+    createdAt: -1,
 });
 
-module.exports = mongoose.model('Shipment', shipmentSchema);
+shipmentSchema.index({
+    transporter: 1,
+    status: 1,
+});
+
+shipmentSchema.index({
+    driver: 1,
+    status: 1,
+});
+
+shipmentSchema.index({
+    status: 1,
+    createdAt: -1,
+});
+
+shipmentSchema.index({
+    "pickupAddress.pincode": 1,
+});
+
+shipmentSchema.index({
+    "deliveryAddress.pincode": 1,
+});
+
+// NO pre-save status hook here.
+
+module.exports = mongoose.model(
+    "Shipment",
+    shipmentSchema
+);

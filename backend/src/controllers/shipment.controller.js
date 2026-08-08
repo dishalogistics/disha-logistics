@@ -31,6 +31,17 @@ exports.getTransporterShipments = asyncHandler(async (req, res) => {
     ApiResponse.success(res, "Shipments retrieved", result);
 });
 
+exports.getCustomerShipments = asyncHandler(async (req, res) => {
+    const userId = req.user.id;
+    const { page = 1, limit = 10 } = req.query;
+    const result = await ShipmentService.getShipmentsForCustomer(
+        userId,
+        parseInt(page),
+        parseInt(limit),
+    );
+    ApiResponse.success(res, "Shipments retrieved", result);
+});
+
 exports.getShipmentById = asyncHandler(async (req, res) => {
     const { id } = req.params;
     const userId = req.user.id;

@@ -8,7 +8,7 @@ export default function TransporterDashboard() {
     const { data, isLoading } = useQuery<PaginatedResponse<Shipment>>({
         queryKey: ["transporterShipments"],
         queryFn: () =>
-            shipmentApi.getTransporterShipments(1, 10).then((res) => res.data.data),
+            shipmentApi.getCustomerShipments(1, 10).then((res) => res.data.data),
     });
 
     const stats = {
@@ -22,7 +22,7 @@ export default function TransporterDashboard() {
 
     return (
         <div className="max-w-7xl mx-auto px-4 py-8">
-            <h1 className="text-3xl font-bold">Transporter Dashboard</h1>
+            <h1 className="text-3xl font-bold">Customer Dashboard</h1>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
                 <div className="bg-white p-6 rounded-xl shadow">
                     <div className="text-sm text-gray-500">Total Loads</div>
@@ -41,7 +41,7 @@ export default function TransporterDashboard() {
                     </div>
                 </div>
             </div>
-            <div className="mt-10">
+            CUSTOMER portal<div className="mt-10">
                 <h2 className="text-xl font-semibold">My Loads</h2>
                 {isLoading ? (
                     <p>Loading...</p>

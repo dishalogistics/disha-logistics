@@ -24,22 +24,24 @@ const menu: Record<Role, { label: string; to: string; icon: typeof FiHome }[]> =
   CUSTOMER: [
     { label: "Overview", to: "/customer/dashboard", icon: FiHome },
     { label: "Book a truck", to: "/customer/book", icon: FiTruck },
-    { label: "My shipments", to: "/customer/dashboard", icon: FiBox },
+    // { label: "My shipments", to: "/customer/dashboard", icon: FiBox },
   ],
   TRANSPORTER: [
     { label: "Overview", to: "/transporter/dashboard", icon: FiHome },
     { label: "Load marketplace", to: "/transporter/marketplace", icon: FiBox },
-    { label: "My fleet", to: "/transporter/dashboard", icon: FiTruck },
-    { label: "Trips & POD", to: "/transporter/dashboard", icon: FiMapPin },
-    { label: "Payments", to: "/transporter/billing", icon: FiCreditCard },
+     { label: "Book a truck", to: "/transporter/book", icon: FiTruck },
+
+    // { label: "My fleet", to: "/transporter/dashboard", icon: FiTruck },
+    // { label: "Trips & POD", to: "/transporter/dashboard", icon: FiMapPin },
+    // { label: "Payments", to: "/transporter/billing", icon: FiCreditCard },
   ],
   ADMIN: [
-    { label: "Command centre", to: "/admin/dashboard", icon: FiHome },
+    // { label: "Command centre", to: "/admin/dashboard", icon: FiHome },
     { label: "Shipments", to: "/admin/shipments", icon: FiBox },
     { label: "Customers & partners", to: "/admin/users", icon: FiUsers },
     { label: "Billing", to: "/admin/billing", icon: FiCreditCard },
     { label: "E-Way Bill desk", to: "/admin/e-way-bill", icon: FiFileText },
-    { label: "Reports", to: "/admin/dashboard", icon: FiBarChart2 },
+    // { label: "Reports", to: "/admin/dashboard", icon: FiBarChart2 },
   ],
   SUPER_ADMIN: [],
 };

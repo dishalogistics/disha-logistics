@@ -16,7 +16,7 @@ router.use(authenticate);
 // Customer routes
 router.post(
     "/",
-    authorize(roles.CUSTOMER, roles.ADMIN, roles.SUPER_ADMIN),
+    authorize(roles.CUSTOMER, roles.ADMIN, roles.SUPER_ADMIN, roles.TRANSPORTER),
     createBookingValidation,
     ShipmentController.createBooking,
 );
@@ -35,8 +35,16 @@ router.get(
     "/transporter",
     authorize(roles.TRANSPORTER, roles.ADMIN, roles.SUPER_ADMIN),
     paginationValidation,
-    ShipmentController.getTransporterShipments,
+    ShipmentController.getCustomerShipments,
 );
+
+router.get(
+    "/customer",
+    authorize(roles.CUSTOMER, roles.ADMIN, roles.SUPER_ADMIN),
+    paginationValidation,
+    ShipmentController.getCustomerShipments,
+);
+
 
 // Common: get by ID
 router.get("/:id", ShipmentController.getShipmentById);

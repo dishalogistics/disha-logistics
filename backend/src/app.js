@@ -7,7 +7,7 @@ const cookieParser = require('cookie-parser');
 const routes = require('./routes/index.routes');
 const errorMiddleware = require('./middlewares/error.middleware');
 const notFound = require('./middlewares/notFound.middleware');
-const rateLimiter = require('./middlewares/rateLimiter.middleware');
+// const rateLimiter = require('./middlewares/rateLimiter.middleware');
 const requestLogger = require('./middlewares/requestLogger.middleware');
 const env = require('./config/env');
 
@@ -30,7 +30,7 @@ app.use(cookieParser());
 app.use(requestLogger);
 
 // Rate limiting
-app.use(rateLimiter);
+// app.use(rateLimiter);
 
 // Routes
 app.use('/api/v1', routes);

@@ -31,6 +31,15 @@ export const shipmentApi = {
             },
         ),
 
+        getCustomerShipments: (page = 1, limit = 10) =>
+        api.get<ApiResponse<PaginatedResponse<Shipment>>>(
+            "/shipments/customer",
+            {
+                params: { page, limit },
+            },
+        ),
+
+
     // Admin
     getAllShipments: (page = 1, limit = 10, filters = {}) =>
         api.get("/admin/shipments", { params: { page, limit, ...filters } }),

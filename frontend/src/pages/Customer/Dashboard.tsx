@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 import StatusBadge from "@/components/common/StatusBadge";
 import { Shipment, PaginatedResponse } from "@/types";
 
-export default function TransporterDashboard() {
+export default function CustomerDashboard() {
     const { data, isLoading } = useQuery<PaginatedResponse<Shipment>>({
-        queryKey: ["transporterShipments"],
+        queryKey: ["customerShipments"],
         queryFn: () =>
             shipmentApi.getCustomerShipments(1, 10).then((res) => res.data.data),
     });
@@ -41,7 +41,7 @@ export default function TransporterDashboard() {
                     </div>
                 </div>
             </div>
-            CUSTOMER portal<div className="mt-10">
+            <div className="mt-10">
                 <h2 className="text-xl font-semibold">My Loads</h2>
                 {isLoading ? (
                     <p>Loading...</p>

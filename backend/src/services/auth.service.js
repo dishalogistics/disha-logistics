@@ -26,12 +26,20 @@ class AuthService {
             expiresAt,
         });
 
-        await sendOTP(user.email, otpCode, 'REGISTER').catch((err) => {
-            // Log but don't fail registration
+        try {
+            await sendOTP(user.email, otpCode, 'REGISTER');
+        } catch (err) {
             console.error('OTP email error:', err);
-        });
+            if (process.env.NODE_ENV !== 'production') {
+                console.warn(`DEV OTP for ${user.email}: ${otpCode}`);
+            }
+        }
 
-        return { userId: user._id, email: user.email };
+        return {
+            userId: user._id,
+            email: user.email,
+            ...(process.env.NODE_ENV !== 'production' ? { otpCode } : {}),
+        };
     }
 
     async verifyOTP(email, otp, purpose) {

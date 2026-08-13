@@ -31,12 +31,12 @@ export default function AdminDashboard() {
                     </div>
                 </div>
                 <div className="bg-white p-6 rounded-xl shadow">
-                    <div className="text-sm text-gray-500">Shipments</div>
+                    <div className="text-sm text-gray-500">Active Loads</div>
                     <div className="text-2xl font-bold">
                         {analytics.shipments?.total || 0}
                     </div>
                     <div className="text-xs text-gray-400">
-                        Delivered: {analytics.shipments?.delivered || 0}
+                        Accepted: {analytics.shipments?.accepted || 0}
                     </div>
                 </div>
                 <div className="bg-white p-6 rounded-xl shadow">
@@ -47,6 +47,9 @@ export default function AdminDashboard() {
                     <div className="text-sm text-gray-500">In Transit</div>
                     <div className="text-2xl font-bold">
                         {analytics.shipments?.inTransit || 0}
+                    </div>
+                    <div className="text-xs text-gray-400">
+                        Delivered: {analytics.shipments?.delivered || 0}
                     </div>
                 </div>
             </div>

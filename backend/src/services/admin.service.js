@@ -128,10 +128,12 @@ class AdminService {
         const totalPending = await ShipmentRepository.count({
             status: shipmentStatus.PENDING,
         });
+        const totalAccepted = await ShipmentRepository.count({
+            status: shipmentStatus.ASSIGNED,
+        });
         const totalInTransit = await ShipmentRepository.count({
             status: {
                 $in: [
-                    shipmentStatus.ASSIGNED,
                     shipmentStatus.PICKUP_SCHEDULED,
                     shipmentStatus.PICKED_UP,
                     shipmentStatus.IN_TRANSIT,
@@ -164,13 +166,14 @@ class AdminService {
                 total: totalShipments,
                 delivered: totalDelivered,
                 pending: totalPending,
+                accepted: totalAccepted,
                 inTransit: totalInTransit,
             },
             revenue,
             recentShipments,
         };
     }
-    
+
 }
 
 module.exports = new AdminService();

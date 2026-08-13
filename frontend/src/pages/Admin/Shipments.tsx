@@ -27,7 +27,12 @@ export default function AdminShipments() {
                     <option value="">All Status</option>
                     <option value="PENDING">Pending</option>
                     <option value="CONFIRMED">Confirmed</option>
+                    <option value="ASSIGNED">Accepted</option>
+                    <option value="PICKUP_SCHEDULED">Pickup Scheduled</option>
+                    <option value="PICKED_UP">Picked Up</option>
                     <option value="IN_TRANSIT">In Transit</option>
+                    <option value="REACHED_HUB">Reached Hub</option>
+                    <option value="OUT_FOR_DELIVERY">Out for Delivery</option>
                     <option value="DELIVERED">Delivered</option>
                     <option value="CANCELLED">Cancelled</option>
                 </select>

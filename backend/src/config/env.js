@@ -1,7 +1,9 @@
 require('dotenv').config();
 
+const nodeEnv = (process.env.NODE_ENV || 'development').trim();
+
 module.exports = {
-    nodeEnv: process.env.NODE_ENV || 'development',
+    nodeEnv: nodeEnv === 'produc' ? 'production' : nodeEnv,
     port: parseInt(process.env.PORT, 10) || 5000,
 
     mongoUri: process.env.MONGO_URI,
@@ -16,7 +18,7 @@ module.exports = {
     smtpHost: process.env.SMTP_HOST,
     smtpPort: parseInt(process.env.SMTP_PORT, 10) || 587,
     smtpUser: process.env.SMTP_USER,
-    smtpPass: process.env.SMTP_PASS,
+    smtpPass: (process.env.SMTP_PASS || '').replace(/\s+/g, ''),
     smtpFrom: process.env.SMTP_FROM,
 
     logLevel: process.env.LOG_LEVEL || 'info',

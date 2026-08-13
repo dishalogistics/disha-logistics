@@ -1,9 +1,13 @@
 const Shipment = require("../models/shipment/Shipment");
 
 class ShipmentRepository {
+    constructor() {
+        this.model = Shipment;
+    }
+
     async create(data) {
         try {
-            const shipment = await Shipment.create(data);
+            const shipment = await this.model.create(data);
 
             return shipment;
         } catch (error) {
@@ -18,7 +22,7 @@ class ShipmentRepository {
     }
 
     async findById(id) {
-        return Shipment.findById(id)
+        return this.model.findById(id)
             .populate("customer", "name email phone role")
             .populate("transporter", "name email phone role")
             .populate("driver", "name email phone role");
@@ -27,7 +31,7 @@ class ShipmentRepository {
     async findByCustomer(customerId, page = 1, limit = 10) {
         const skip = (page - 1) * limit;
         const [data, total] = await Promise.all([
-            Shipment.find({ customer: customerId })
+            this.model.find({ customer: customerId })
                 .populate(
                     "transporter",
                     "name email phone"
@@ -40,7 +44,7 @@ class ShipmentRepository {
                 .skip(skip)
                 .limit(limit),
 
-            Shipment.countDocuments({
+            this.model.countDocuments({
                 customer: customerId,
             }),
         ]);
@@ -64,7 +68,7 @@ class ShipmentRepository {
         const skip = (page - 1) * limit;
 
         const [data, total] = await Promise.all([
-            Shipment.find({
+            this.model.find({
                 transporter: transporterId,
             })
                 .populate(
@@ -79,7 +83,7 @@ class ShipmentRepository {
                 .skip(skip)
                 .limit(limit),
 
-            Shipment.countDocuments({
+            this.model.countDocuments({
                 transporter: transporterId,
             }),
         ]);
@@ -98,7 +102,7 @@ class ShipmentRepository {
     const skip = (page - 1) * limit;
 
     const [data, total] = await Promise.all([
-        Shipment.find(filter)
+        this.model.find(filter)
             .sort({ createdAt: -1 })
             .skip(skip)
             .limit(limit)
@@ -115,7 +119,7 @@ class ShipmentRepository {
                 "firstName lastName email phoneNumber"
             ),
 
-        Shipment.countDocuments(filter),
+        this.model.countDocuments(filter),
     ]);
 
     return {
@@ -128,7 +132,7 @@ class ShipmentRepository {
 }
 
     async updateStatus(id, status, note) {
-        const shipment = await Shipment.findById(id);
+        const shipment = await this.model.findById(id);
 
         if (!shipment) {
             return null;
@@ -164,7 +168,7 @@ class ShipmentRepository {
     }
 
     async count(filter = {}) {
-        return Shipment.countDocuments(filter);
+        return this.model.countDocuments(filter);
     }
 }
 

@@ -35,7 +35,7 @@ export default function OTPVerification() {
             if (purpose === "REGISTER") {
                 navigate("/login");
             } else if (purpose === "RESET_PASSWORD") {
-                navigate("/reset-password", { state: { email } });
+                navigate("/reset-password", { state: { email, otp: data.otp } });
             } else {
                 navigate("/");
             }

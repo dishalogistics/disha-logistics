@@ -9,6 +9,7 @@ import toast from "react-hot-toast";
 
 const resetSchema = z
     .object({
+        otp: z.string().length(6, "OTP must be 6 digits"),
         newPassword: z.string().min(8, "Password must be at least 8 characters"),
         confirmPassword: z.string(),
     })
@@ -23,19 +24,23 @@ export default function ResetPassword() {
     const location = useLocation();
     const navigate = useNavigate();
     const email = location.state?.email || "";
+    const defaultOtp = location.state?.otp || "";
     const {
         register,
         handleSubmit,
         formState: { errors, isSubmitting },
     } = useForm<ResetForm>({
         resolver: zodResolver(resetSchema),
+        defaultValues: {
+            otp: defaultOtp,
+        },
     });
 
     const onSubmit = async (data: ResetForm) => {
         try {
             await authApi.resetPassword({
                 email,
-                otp: "",
+                otp: data.otp,
                 newPassword: data.newPassword,
             });
             toast.success("Password reset successfully");
@@ -49,6 +54,13 @@ export default function ResetPassword() {
         <div className="max-w-md mx-auto mt-12 p-6 bg-white rounded-2xl shadow-lg">
             <h2 className="text-2xl font-bold text-center mb-6">Reset Password</h2>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                <Input
+                    label="OTP"
+                    type="text"
+                    maxLength={6}
+                    {...register("otp")}
+                    error={errors.otp?.message}
+                />
                 <Input
                     label="New Password"
                     type="password"

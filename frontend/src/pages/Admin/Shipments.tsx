@@ -44,26 +44,51 @@ export default function AdminShipments() {
                     <table className="min-w-full bg-white rounded-xl shadow overflow-hidden">
                         <thead className="bg-gray-50">
                             <tr>
-                                <th className="px-6 py-3 text-left">Order</th>
-                                <th className="px-6 py-3 text-left">Customer</th>
-                                <th className="px-6 py-3 text-left">Route</th>
-                                <th className="px-6 py-3 text-left">Vehicle</th>
-                                <th className="px-6 py-3 text-left">Amount</th>
-                                <th className="px-6 py-3 text-left">Status</th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Order
+                                </th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Customer
+                                </th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Route
+                                </th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Vehicle
+                                </th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Transporter
+                                </th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Status
+                                </th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-200">
                             {data?.data?.map((s: any) => (
-                                <tr key={s._id}>
-                                    <td className="px-6 py-4">#{s._id.slice(-6)}</td>
-                                    <td className="px-6 py-4">
+                                <tr key={s._id} className="hover:bg-gray-50">
+                                    <td className="px-6 py-4 text-sm font-medium text-gray-900">
+                                        #{s._id.slice(-6)}
+                                    </td>
+                                    <td className="px-6 py-4 text-sm text-gray-900">
                                         {s.customer?.firstName} {s.customer?.lastName}
                                     </td>
-                                    <td className="px-6 py-4">
-                                        {s.pickupAddress.city} → {s.deliveryAddress.city}
+                                    <td className="px-6 py-4 text-sm text-gray-900">
+                                        {s.pickupAddress?.city} → {s.deliveryAddress?.city}
                                     </td>
-                                    <td className="px-6 py-4">{s.vehicleType}</td>
-                                    <td className="px-6 py-4">₹{s.finalPrice}</td>
+                                    <td className="px-6 py-4 text-sm text-gray-900">
+                                        {s.vehicleType}
+                                    </td>
+                                    <td className="px-6 py-4 text-sm text-gray-900">
+                                        {s.transporter ? (
+                                            <span className="font-medium">
+                                                {s.transporter.companyName || 
+                                                 `${s.transporter.firstName} ${s.transporter.lastName}`}
+                                            </span>
+                                        ) : (
+                                            <span className="text-gray-400 italic">Not assigned</span>
+                                        )}
+                                    </td>
                                     <td className="px-6 py-4">
                                         <StatusBadge status={s.status} />
                                     </td>
@@ -71,17 +96,19 @@ export default function AdminShipments() {
                             ))}
                         </tbody>
                     </table>
-                    <div className="flex justify-between mt-4">
+                    <div className="flex justify-between items-center mt-4">
                         <Button
                             onClick={() => setPage((p) => Math.max(1, p - 1))}
                             disabled={page === 1}
+                            variant="outline"
                         >
                             Previous
                         </Button>
-                        <span>Page {page}</span>
+                        <span className="text-sm text-gray-600">Page {page}</span>
                         <Button
                             onClick={() => setPage((p) => p + 1)}
                             disabled={data?.data?.length < 10}
+                            variant="outline"
                         >
                             Next
                         </Button>

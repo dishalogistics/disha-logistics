@@ -1,9 +1,173 @@
 import { Link } from "react-router-dom";
-import { FiArrowRight, FiCheckCircle, FiMapPin, FiShield, FiTruck } from "react-icons/fi";
+import {
+  FiArrowRight,
+  FiCheckCircle,
+  FiMapPin,
+  FiShield,
+} from "react-icons/fi";
 
 export default function Home() {
-  return <div className="overflow-hidden bg-[#f7faff]"><section className="relative bg-[#0b1a33] px-5 pb-20 pt-16 text-white lg:pb-28 lg:pt-24"><div className="absolute right-0 top-0 h-full w-1/2 bg-[radial-gradient(circle_at_center,rgba(21,94,239,.55),transparent_60%)]" /><div className="relative mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1.1fr_.9fr] lg:items-center"><div><p className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-sm text-blue-100"><FiMapPin className="text-[#ffb703]" /> Pan-India road freight, made simple</p><h1 className="mt-6 max-w-3xl text-4xl font-extrabold leading-tight tracking-tight sm:text-6xl">Every truck. Every route. <span className="text-[#ffb703]">One clear view.</span></h1><p className="mt-5 max-w-xl text-lg leading-8 text-slate-300">Book, move and manage your road freight across India with Disha Logistics—built for businesses, fleet owners and operations teams.</p><div className="mt-8 flex flex-wrap gap-3"><Link to="/register" className="inline-flex items-center gap-2 rounded-xl bg-[#ffb703] px-5 py-3.5 font-bold text-[#0b1a33]">Start shipping <FiArrowRight /></Link><a href="#how-it-works" className="rounded-xl border border-white/25 px-5 py-3.5 font-semibold hover:bg-white/10">How it works</a></div><div className="mt-9 flex flex-wrap gap-x-6 gap-y-3 text-sm text-slate-300"><span className="inline-flex items-center gap-2"><FiCheckCircle className="text-[#ffb703]" /> GST-ready invoicing</span><span className="inline-flex items-center gap-2"><FiCheckCircle className="text-[#ffb703]" /> Live trip updates</span></div></div><div className="rounded-3xl border border-white/10 bg-white p-5 text-slate-900 shadow-2xl sm:p-6"><div className="flex items-center justify-between"><div><p className="text-xs font-bold uppercase tracking-widest text-slate-400">Live movement</p><p className="mt-1 font-bold">Gorakhpur → Mumbai</p></div><span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-bold text-emerald-700">IN TRANSIT</span></div><div className="mt-7 flex items-center gap-3"><div className="grid h-11 w-11 place-items-center rounded-xl bg-blue-50 text-[#155eef]"><FiTruck size={23} /></div><div><p className="font-bold">UP53 BT 4821</p><p className="text-sm text-slate-500">32 ft SXL • 11.2 tonnes</p></div></div><div className="my-6 h-1 rounded-full bg-slate-100"><div className="h-1 w-3/5 rounded-full bg-[#155eef]" /></div><div className="flex justify-between text-sm"><div><p className="font-bold">Gorakhpur</p><p className="text-slate-500">Picked up, 09:30</p></div><div className="text-right"><p className="font-bold">Mumbai</p><p className="text-slate-500">ETA 08 Aug, 18:00</p></div></div><div className="mt-6 rounded-xl bg-slate-50 p-3 text-sm text-slate-600">Last update: <b className="text-slate-800">Crossed Prayagraj</b> • 22 mins ago</div></div></div></section>
-  <section id="how-it-works" className="mx-auto max-w-7xl px-5 py-16"><div className="text-center"><p className="text-sm font-bold tracking-widest text-[#155eef]">ONE PLATFORM, THREE WORKFLOWS</p><h2 className="mt-2 text-3xl font-extrabold">Logistics that works for everyone</h2></div><div className="mt-10 grid gap-5 md:grid-cols-3">{[["For customers", "Book a truck, track every milestone, and keep your invoices organised.", "Book & track"], ["For transporters", "Find verified loads, manage trips and stay on top of settlements.", "Move more loads"], ["For admins", "Control operations, partners, shipments and exceptions from one desk.", "Run operations"]].map(([title, text, cta], index) => <article key={title} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"><div className="grid h-11 w-11 place-items-center rounded-xl bg-blue-50 font-extrabold text-[#155eef]">0{index + 1}</div><h3 className="mt-5 text-xl font-bold">{title}</h3><p className="mt-2 leading-7 text-slate-500">{text}</p><Link to="/register" className="mt-6 inline-flex items-center gap-1 font-bold text-[#155eef]">{cta} <FiArrowRight /></Link></article>)}</div></section>
-  <section className="border-y border-slate-200 bg-white"><div className="mx-auto grid max-w-7xl gap-8 px-5 py-14 text-center sm:grid-cols-2 lg:grid-cols-4">{[["25,000+", "Shipments delivered"], ["28", "States covered"], ["500+", "Business customers"], ["98%", "On-time delivery"]].map(([value, label]) => <div key={label}><p className="text-4xl font-extrabold text-[#0b1a33]">{value}</p><p className="mt-2 text-sm font-medium text-slate-500">{label}</p></div>)}</div></section>
-  <section className="mx-auto grid max-w-7xl gap-8 px-5 py-16 lg:grid-cols-2 lg:items-center"><div><p className="text-sm font-bold tracking-widest text-[#155eef]">COMPLIANCE, WITHOUT THE CHAOS</p><h2 className="mt-3 text-3xl font-extrabold">Freight documents where your team needs them.</h2><p className="mt-4 leading-7 text-slate-500">Keep billing, GST-ready invoices and E-Way Bill preparation alongside each shipment. Your operational paperwork stays connected to the trip.</p><Link to="/register" className="mt-6 inline-flex items-center gap-2 font-bold text-[#155eef]">Explore the platform <FiArrowRight /></Link></div><div className="rounded-3xl border border-blue-100 bg-blue-50 p-7"><FiShield size={30} className="text-[#155eef]"/><h3 className="mt-5 text-xl font-bold">Built for Indian road transport</h3><ul className="mt-4 space-y-3 text-slate-600">{["Road freight lanes across India", "Role-specific operations dashboards", "E-Way Bill preparation workspace"].map(item => <li key={item} className="flex gap-2"><FiCheckCircle className="mt-1 shrink-0 text-emerald-600" />{item}</li>)}</ul></div></section></div>;
+  return (
+    <div className="overflow-hidden bg-[#f7faff]">
+      {/* Hero Section */}
+      <section className="relative bg-[#0b1a33] px-5 pb-20 pt-16 text-white lg:pb-28 lg:pt-24">
+        <div className="absolute right-0 top-0 h-full w-1/2 bg-[radial-gradient(circle_at_center,rgba(21,94,239,.55),transparent_60%)]" />
+
+        <div className="relative mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1.1fr_.9fr] lg:items-center">
+          <div>
+            <p className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-sm text-blue-100">
+              <FiMapPin className="text-[#ffb703]" />
+              Pan-India road freight, made simple
+            </p>
+
+            <h1 className="mt-6 max-w-3xl text-4xl font-extrabold leading-tight tracking-tight sm:text-6xl">
+              Every truck. Every route.{" "}
+              <span className="text-[#ffb703]">One clear view.</span>
+            </h1>
+
+            <p className="mt-5 max-w-xl text-lg leading-8 text-slate-300">
+              Book, move and manage your road freight across India with Disha
+              Logistics—built for businesses, fleet owners and operations teams.
+            </p>
+
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link
+                to="/register"
+                className="inline-flex items-center gap-2 rounded-xl bg-[#ffb703] px-5 py-3.5 font-bold text-[#0b1a33]"
+              >
+                Start shipping <FiArrowRight />
+              </Link>
+              <a
+                href="#how-it-works"
+                className="rounded-xl border border-white/25 px-5 py-3.5 font-semibold hover:bg-white/10"
+              >
+                How it works
+              </a>
+            </div>
+
+            <div className="mt-9 flex flex-wrap gap-x-6 gap-y-3 text-sm text-slate-300">
+              <span className="inline-flex items-center gap-2">
+                <FiCheckCircle className="text-[#ffb703]" />
+                GST-ready invoicing
+              </span>
+              <span className="inline-flex items-center gap-2">
+                <FiCheckCircle className="text-[#ffb703]" />
+                Live trip updates
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works Section */}
+      <section id="how-it-works" className="mx-auto max-w-7xl px-5 py-16">
+        <div className="text-center">
+          <p className="text-sm font-bold tracking-widest text-[#155eef]">
+            ONE PLATFORM, THREE WORKFLOWS
+          </p>
+          <h2 className="mt-2 text-3xl font-extrabold">
+            Logistics that works for everyone
+          </h2>
+        </div>
+
+        <div className="mt-10 grid gap-5 md:grid-cols-3">
+          {[
+            [
+              "For customers",
+              "Book a truck, track every milestone, and keep your invoices organised.",
+              "Book & track",
+            ],
+            [
+              "For transporters",
+              "Find verified loads, manage trips and stay on top of settlements.",
+              "Move more loads",
+            ],
+            [
+              "For admins",
+              "Control operations, partners, shipments and exceptions from one desk.",
+              "Run operations",
+            ],
+          ].map(([title, text, cta], index) => (
+            <article
+              key={title}
+              className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
+            >
+              <div className="grid h-11 w-11 place-items-center rounded-xl bg-blue-50 font-extrabold text-[#155eef]">
+                0{index + 1}
+              </div>
+
+              <h3 className="mt-5 text-xl font-bold">{title}</h3>
+              <p className="mt-2 leading-7 text-slate-500">{text}</p>
+
+              <Link
+                to="/register"
+                className="mt-6 inline-flex items-center gap-1 font-bold text-[#155eef]"
+              >
+                {cta} <FiArrowRight />
+              </Link>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className="border-y border-slate-200 bg-white">
+        <div className="mx-auto grid max-w-7xl gap-8 px-5 py-14 text-center sm:grid-cols-2 lg:grid-cols-4">
+          {[
+            ["50+", "Shipments delivered"],
+            ["28", "States covered"],
+            ["10+", "Business customers"],
+            ["98%", "On-time delivery"],
+          ].map(([value, label]) => (
+            <div key={label}>
+              <p className="text-4xl font-extrabold text-[#0b1a33]">{value}</p>
+              <p className="mt-2 text-sm font-medium text-slate-500">{label}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Compliance Section */}
+      <section className="mx-auto grid max-w-7xl gap-8 px-5 py-16 lg:grid-cols-2 lg:items-center">
+        <div>
+          <p className="text-sm font-bold tracking-widest text-[#155eef]">
+            COMPLIANCE, WITHOUT THE CHAOS
+          </p>
+          <h2 className="mt-3 text-3xl font-extrabold">
+            Freight documents where your team needs them.
+          </h2>
+          <p className="mt-4 leading-7 text-slate-500">
+            Keep billing, GST-ready invoices and E-Way Bill preparation
+            alongside each shipment. Your operational paperwork stays connected
+            to the trip.
+          </p>
+          <Link
+            to="/register"
+            className="mt-6 inline-flex items-center gap-2 font-bold text-[#155eef]"
+          >
+            Explore the platform <FiArrowRight />
+          </Link>
+        </div>
+
+        <div className="rounded-3xl border border-blue-100 bg-blue-50 p-7">
+          <FiShield size={30} className="text-[#155eef]" />
+          <h3 className="mt-5 text-xl font-bold">
+            Built for Indian road transport
+          </h3>
+          <ul className="mt-4 space-y-3 text-slate-600">
+            {[
+              "Road freight lanes across India",
+              "Role-specific operations dashboards",
+              "E-Way Bill preparation workspace",
+            ].map((item) => (
+              <li key={item} className="flex gap-2">
+                <FiCheckCircle className="mt-1 shrink-0 text-emerald-600" />
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    </div>
+  );
 }

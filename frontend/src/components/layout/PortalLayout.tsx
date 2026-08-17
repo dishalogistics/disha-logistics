@@ -48,6 +48,14 @@ export default function PortalLayout() {
 
   const role = (user?.role || "CUSTOMER") as Role;
   const items = menu[role] || menu.CUSTOMER;
+  const dashboardPath =
+    role === "CUSTOMER"
+      ? "/customer/dashboard"
+      : role === "TRANSPORTER"
+        ? "/transporter/dashboard"
+        : role === "ADMIN" || role === "SUPER_ADMIN"
+          ? "/admin/dashboard"
+          : "/";
 
   const logout = async () => {
     try {
@@ -78,7 +86,7 @@ export default function PortalLayout() {
             }`}
         >
           <div className="flex items-center justify-between px-3">
-            <NavLink to="/" className="text-xl font-extrabold tracking-tight text-white">
+            <NavLink to={dashboardPath} className="text-xl font-extrabold tracking-tight text-white">
               <span className="text-[#ffb703]">disha</span> logistics
             </NavLink>
             <button onClick={() => setOpen(false)} className="lg:hidden">

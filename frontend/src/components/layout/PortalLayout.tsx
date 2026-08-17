@@ -27,7 +27,7 @@ const menu: Record<Role, { label: string; to: string; icon: typeof FiHome }[]> =
   TRANSPORTER: [
     { label: "Overview", to: "/transporter/dashboard", icon: FiHome },
     { label: "Load marketplace", to: "/transporter/marketplace", icon: FiBox },
-     { label: "Book a truck", to: "/transporter/book", icon: FiTruck },
+    { label: "Book a truck", to: "/transporter/book", icon: FiTruck },
 
     // { label: "My fleet", to: "/transporter/dashboard", icon: FiTruck },
     // { label: "Trips & POD", to: "/transporter/dashboard", icon: FiMapPin },
@@ -78,7 +78,7 @@ export default function PortalLayout() {
             </NavLink>)}
           </nav>
           <div className="mt-auto border-t border-white/10 pt-4">
-            <button className="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium hover:bg-white/10 hover:text-white"><FiSettings size={18} /> Account settings</button>
+            {/* <button className="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium hover:bg-white/10 hover:text-white"><FiSettings size={18} /> Account settings</button> */}
             <button onClick={logout} className="mt-1 flex w-full items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium hover:bg-white/10 hover:text-white"><FiLogOut size={18} /> Logout</button>
           </div>
         </aside>

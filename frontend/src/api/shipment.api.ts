@@ -61,6 +61,8 @@ export const shipmentApi = {
 
     updateUser: (id: string, data: any) => api.patch(`/admin/users/${id}`, data),
 
+    activateUser: (id: string) => api.patch(`/admin/users/${id}`, { isActive: true }),
+
     deleteUser: (id: string) => api.delete(`/admin/users/${id}`),
 
     getAdminAnalytics: () => api.get("/admin/analytics"),

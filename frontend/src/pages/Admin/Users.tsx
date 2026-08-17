@@ -15,10 +15,13 @@ export default function AdminUsers() {
             shipmentApi.getAllUsers(page, 10, filters).then((res) => res.data.data),
     });
 
-    const deleteMutation = useMutation({
-        mutationFn: (id: string) => shipmentApi.deleteUser(id),
-        onSuccess: () => {
-            toast.success("User deactivated");
+    const toggleUserStatus = useMutation({
+        mutationFn: ({ id, isActive }: { id: string; isActive: boolean }) =>
+            isActive ? shipmentApi.activateUser(id) : shipmentApi.deleteUser(id),
+        onSuccess: (_, variables) => {
+            toast.success(
+                variables.isActive ? "User activated" : "User deactivated",
+            );
             queryClient.invalidateQueries({ queryKey: ["adminUsers"] });
         },
         onError: (err: any) => toast.error(err.response?.data?.message || "Failed"),
@@ -71,10 +74,15 @@ export default function AdminUsers() {
                                     </td>
                                     <td className="px-6 py-4">
                                         <button
-                                            onClick={() => deleteMutation.mutate(user._id)}
-                                            className="text-red-600 hover:underline"
+                                            onClick={() =>
+                                                toggleUserStatus.mutate({
+                                                    id: user._id,
+                                                    isActive: !user.isActive,
+                                                })
+                                            }
+                                            className={user.isActive ? "text-red-600 hover:underline" : "text-green-600 hover:underline"}
                                         >
-                                            Deactivate
+                                            {user.isActive ? "Deactivate" : "Activate"}
                                         </button>
                                     </td>
                                 </tr>

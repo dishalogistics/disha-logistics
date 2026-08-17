@@ -9,7 +9,7 @@ import {
   FiHome,
   FiLogOut,
   FiMenu,
-  FiSettings,
+  // FiSettings,
   FiTruck,
   FiUsers,
   FiX,

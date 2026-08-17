@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuthStore } from "@/store/authStore";
 import { Button } from "@/components/common/Button";
 import { authApi } from "@/api/auth.api";
+import logo from "@/assets/logo.png";
 import toast from "react-hot-toast";
 
 export default function Navbar() {
@@ -24,7 +25,7 @@ export default function Navbar() {
             <div className="max-w-7xl mx-auto flex items-center justify-between">
                 <Link to="/" className="flex items-center gap-3">
                     <img
-                        src="/src/assets/logo.png"
+                        src={logo}
                         alt="Disha Logistics logo"
                         className="h-10 w-auto object-contain"
                     />

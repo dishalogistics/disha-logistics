@@ -1,7 +1,11 @@
 const router = require("express").Router();
 const ShipmentController = require("../controllers/shipment.controller");
-const { authenticate } = require("../middlewares/auth.middleware");
-const { authorize } = require("../middlewares/role.middleware");
+const {
+    authenticate
+} = require("../middlewares/auth.middleware");
+const {
+    authorize
+} = require("../middlewares/role.middleware");
 const roles = require("../constants/roles");
 const {
     createBookingValidation,
@@ -35,7 +39,7 @@ router.get(
     "/transporter",
     authorize(roles.TRANSPORTER, roles.ADMIN, roles.SUPER_ADMIN),
     paginationValidation,
-    ShipmentController.getCustomerShipments,
+    ShipmentController.getTransporterShipments,
 );
 
 router.get(

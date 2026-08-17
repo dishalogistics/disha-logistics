@@ -2,6 +2,19 @@ import api from "./axiosInstance";
 import { BookingFormData } from "@/utils/validators";
 import { Shipment, PaginatedResponse, ApiResponse } from "@/types";
 
+const normalizePaginatedResponse = <T>(response: any): PaginatedResponse<T> => {
+    const payload = response?.data?.data ?? response?.data ?? {};
+    const list = Array.isArray(payload?.data) ? payload.data : Array.isArray(payload) ? payload : [];
+
+    return {
+        data: list as T[],
+        total: payload?.total ?? list.length,
+        page: payload?.page ?? 1,
+        limit: payload?.limit ?? list.length,
+        totalPages: payload?.totalPages ?? 1,
+    };
+};
+
 export const shipmentApi = {
     // Customer
     createBooking: (data: BookingFormData) => api.post("/shipments", data),
@@ -16,7 +29,9 @@ export const shipmentApi = {
 
     // Transporter
     getAvailableShipments: (page = 1, limit = 10, filters = {}) =>
-        api.get("/marketplace/available", { params: { page, limit, ...filters } }),
+        api
+            .get("/marketplace/available", { params: { page, limit, ...filters } })
+            .then((res) => normalizePaginatedResponse<Shipment>(res)),
 
     acceptLoad: (id: string) => api.patch(`/marketplace/${id}/accept`),
 
@@ -24,21 +39,18 @@ export const shipmentApi = {
         api.patch(`/marketplace/${id}/reject`, { reason }),
 
     getTransporterShipments: (page = 1, limit = 10) =>
-        api.get<ApiResponse<PaginatedResponse<Shipment>>>(
-            "/shipments/transporter",
-            {
+        api
+            .get<ApiResponse<PaginatedResponse<Shipment>>>('/shipments/transporter', {
                 params: { page, limit },
-            },
-        ),
+            })
+            .then((res) => normalizePaginatedResponse<Shipment>(res)),
 
-        getCustomerShipments: (page = 1, limit = 10) =>
-        api.get<ApiResponse<PaginatedResponse<Shipment>>>(
-            "/shipments/customer",
-            {
+    getCustomerShipments: (page = 1, limit = 10) =>
+        api
+            .get<ApiResponse<PaginatedResponse<Shipment>>>('/shipments/customer', {
                 params: { page, limit },
-            },
-        ),
-
+            })
+            .then((res) => normalizePaginatedResponse<Shipment>(res)),
 
     // Admin
     getAllShipments: (page = 1, limit = 10, filters = {}) =>

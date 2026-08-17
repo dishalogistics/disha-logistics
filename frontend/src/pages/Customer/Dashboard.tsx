@@ -4,11 +4,31 @@ import { Link } from "react-router-dom";
 import StatusBadge from "@/components/common/StatusBadge";
 import { Shipment, PaginatedResponse } from "@/types";
 
+const formatUserName = (user?: any) => {
+    if (!user) return "Not assigned";
+    if (typeof user === "string") return user || "Not assigned";
+
+    const fullName = [
+        user.firstName,
+        user.lastName,
+        user.name,
+        user.companyName,
+    ]
+        .filter(Boolean)
+        .join(" ")
+        .trim();
+
+    if (fullName) return fullName;
+
+    if (user.email) return user.email.split("@")[0];
+
+    return "Unknown user";
+};
+
 export default function CustomerDashboard() {
     const { data, isLoading } = useQuery<PaginatedResponse<Shipment>>({
         queryKey: ["customerShipments"],
-        queryFn: () =>
-            shipmentApi.getCustomerShipments(1, 10).then((res) => res.data.data),
+        queryFn: () => shipmentApi.getCustomerShipments(1, 10),
     });
 
     const stats = {
@@ -61,7 +81,7 @@ export default function CustomerDashboard() {
                                         Order
                                     </th>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                                        Customer
+                                        Accepted by
                                     </th>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
                                         Route
@@ -72,15 +92,14 @@ export default function CustomerDashboard() {
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-200">
-                                {/* ✅ `shipment` is now automatically typed as Shipment */}
+                                {/* `shipment` is now automatically typed as Shipment */}
                                 {data?.data?.map((shipment) => (
                                     <tr key={shipment._id} className="hover:bg-gray-50">
                                         <td className="px-6 py-4 text-sm">
                                             #{shipment._id.slice(-6)}
                                         </td>
                                         <td className="px-6 py-4 text-sm">
-                                            {shipment.customer?.firstName}{" "}
-                                            {shipment.customer?.lastName}
+                                            {formatUserName(shipment.transporter)}
                                         </td>
                                         <td className="px-6 py-4 text-sm">
                                             {shipment.pickupAddress.city} →{" "}

@@ -6,6 +6,8 @@ import { Input } from "@/components/common/Input";
 import { shipmentApi } from "@/api/shipment.api";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
+import { useAuthStore } from "@/store/authStore";
 
 type BookingFormType = z.infer<typeof bookingSchema>;
 
@@ -20,6 +22,9 @@ const goodsTypes = [
 ];
 
 export default function BookShipment() {
+    const queryClient = useQueryClient();
+    const navigate = useNavigate();
+    const user = useAuthStore((state) => state.user);
     const {
         register,
         handleSubmit,
@@ -35,13 +40,22 @@ export default function BookShipment() {
         },
     });
 
-    const navigate = useNavigate();
-
     const onSubmit = async (data: BookingFormType) => {
         try {
             const res = await shipmentApi.createBooking(data);
+            const shipmentId = res.data.data._id;
+
+            queryClient.invalidateQueries({ queryKey: ["customerShipments"] });
+            queryClient.invalidateQueries({ queryKey: ["transporterShipments"] });
+
             toast.success("Shipment booked successfully!");
-            navigate(`/customer/tracking/${res.data.data._id}`);
+
+            if (user?.role === "TRANSPORTER") {
+                navigate("/transporter/dashboard");
+                return;
+            }
+
+            navigate(`/customer/tracking/${shipmentId}`);
         } catch (err: any) {
             toast.error(err.response?.data?.message || "Booking failed");
         }

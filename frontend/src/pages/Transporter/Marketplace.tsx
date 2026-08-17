@@ -8,8 +8,7 @@ export default function Marketplace() {
     const queryClient = useQueryClient();
     const { data, isLoading } = useQuery({
         queryKey: ["availableShipments"],
-        queryFn: () =>
-            shipmentApi.getAvailableShipments(1, 20).then((res) => res.data.data),
+        queryFn: () => shipmentApi.getAvailableShipments(1, 20),
     });
 
     const acceptMutation = useMutation({
@@ -54,15 +53,23 @@ export default function Marketplace() {
                                         {shipment.deliveryAddress.city}
                                     </h3>
                                     <p className="text-sm text-gray-500">
-                                        Customer: {shipment.customer?.firstName}{" "}
-                                        {shipment.customer?.lastName}
+                                        Customer: {(() => {
+                                            const user = shipment.customer;
+                                            if (!user) return "Unknown customer";
+                                            if (typeof user === "string") return user || "Unknown customer";
+                                            const fullName = [user.firstName, user.lastName, user.name, user.companyName]
+                                                .filter(Boolean)
+                                                .join(" ")
+                                                .trim();
+                                            return fullName || user.email?.split("@")[0] || "Unknown customer";
+                                        })()}
                                     </p>
                                     <p className="text-sm text-gray-500">
                                         Weight: {shipment.weight} kg • {shipment.vehicleType}
                                     </p>
-                                    <p className="text-sm text-gray-500">
+                                    {/* <p className="text-sm text-gray-500">
                                         Price: ₹{shipment.finalPrice}
-                                    </p>
+                                    </p> */}
                                     <StatusBadge status={shipment.status} />
                                 </div>
                                 <div className="flex gap-2">

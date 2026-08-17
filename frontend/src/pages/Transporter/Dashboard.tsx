@@ -4,11 +4,31 @@ import { Link } from "react-router-dom";
 import StatusBadge from "@/components/common/StatusBadge";
 import { Shipment, PaginatedResponse } from "@/types";
 
+const formatUserName = (user?: any) => {
+    if (!user) return "Unknown customer";
+    if (typeof user === "string") return user || "Unknown customer";
+
+    const fullName = [
+        user.firstName,
+        user.lastName,
+        user.name,
+        user.companyName,
+    ]
+        .filter(Boolean)
+        .join(" ")
+        .trim();
+
+    if (fullName) return fullName;
+
+    if (user.email) return user.email.split("@")[0];
+
+    return "Unknown customer";
+};
+
 export default function TransporterDashboard() {
     const { data, isLoading } = useQuery<PaginatedResponse<Shipment>>({
         queryKey: ["transporterShipments"],
-        queryFn: () =>
-            shipmentApi.getTransporterShipments(1, 10).then((res) => res.data.data),
+        queryFn: () => shipmentApi.getTransporterShipments(1, 10),
     });
 
     const stats = {
@@ -79,8 +99,7 @@ export default function TransporterDashboard() {
                                             #{shipment._id.slice(-6)}
                                         </td>
                                         <td className="px-6 py-4 text-sm">
-                                            {shipment.customer?.firstName}{" "}
-                                            {shipment.customer?.lastName}
+                                            {formatUserName(shipment.customer)}
                                         </td>
                                         <td className="px-6 py-4 text-sm">
                                             {shipment.pickupAddress.city} →{" "}

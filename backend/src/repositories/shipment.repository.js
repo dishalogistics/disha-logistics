@@ -23,9 +23,9 @@ class ShipmentRepository {
 
     async findById(id) {
         return this.model.findById(id)
-            .populate("customer", "name email phone role")
-            .populate("transporter", "name email phone role")
-            .populate("driver", "name email phone role");
+            .populate("customer", "firstName lastName email phoneNumber role")
+            .populate("transporter", "firstName lastName email phoneNumber role")
+            .populate("driver", "firstName lastName email phoneNumber role");
     }
 
     async findByCustomer(customerId, page = 1, limit = 10) {
@@ -33,12 +33,16 @@ class ShipmentRepository {
         const [data, total] = await Promise.all([
             this.model.find({ customer: customerId })
                 .populate(
+                    "customer",
+                    "firstName lastName email phoneNumber"
+                )
+                .populate(
                     "transporter",
-                    "name email phone"
+                    "firstName lastName email phoneNumber"
                 )
                 .populate(
                     "driver",
-                    "name email phone"
+                    "firstName lastName email phoneNumber"
                 )
                 .sort({ createdAt: -1 })
                 .skip(skip)
@@ -51,6 +55,10 @@ class ShipmentRepository {
 
         return {
             data,
+            total,
+            page,
+            limit,
+            totalPages: Math.ceil(total / limit),
             pagination: {
                 page,
                 limit,
@@ -73,11 +81,15 @@ class ShipmentRepository {
             })
                 .populate(
                     "customer",
-                    "name email phone"
+                    "firstName lastName email phoneNumber"
+                )
+                .populate(
+                    "transporter",
+                    "firstName lastName email phoneNumber"
                 )
                 .populate(
                     "driver",
-                    "name email phone"
+                    "firstName lastName email phoneNumber"
                 )
                 .sort({ createdAt: -1 })
                 .skip(skip)
@@ -90,6 +102,10 @@ class ShipmentRepository {
 
         return {
             data,
+            total,
+            page,
+            limit,
+            totalPages: Math.ceil(total / limit),
             pagination: {
                 page,
                 limit,
@@ -99,37 +115,37 @@ class ShipmentRepository {
         };
     }
     async findAll(filter = {}, page = 1, limit = 10) {
-    const skip = (page - 1) * limit;
+        const skip = (page - 1) * limit;
 
-    const [data, total] = await Promise.all([
-        this.model.find(filter)
-            .sort({ createdAt: -1 })
-            .skip(skip)
-            .limit(limit)
-            .populate(
-                "customer",
-                "firstName lastName email phoneNumber"
-            )
-            .populate(
-                "transporter",
-                "firstName lastName email phoneNumber"
-            )
-            .populate(
-                "driver",
-                "firstName lastName email phoneNumber"
-            ),
+        const [data, total] = await Promise.all([
+            this.model.find(filter)
+                .sort({ createdAt: -1 })
+                .skip(skip)
+                .limit(limit)
+                .populate(
+                    "customer",
+                    "firstName lastName email phoneNumber"
+                )
+                .populate(
+                    "transporter",
+                    "firstName lastName email phoneNumber"
+                )
+                .populate(
+                    "driver",
+                    "firstName lastName email phoneNumber"
+                ),
 
-        this.model.countDocuments(filter),
-    ]);
+            this.model.countDocuments(filter),
+        ]);
 
-    return {
-        data,
-        total,
-        page,
-        limit,
-        totalPages: Math.ceil(total / limit),
-    };
-}
+        return {
+            data,
+            total,
+            page,
+            limit,
+            totalPages: Math.ceil(total / limit),
+        };
+    }
 
     async updateStatus(id, status, note) {
         const shipment = await this.model.findById(id);

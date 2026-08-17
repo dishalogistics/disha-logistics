@@ -22,8 +22,15 @@ export default function Navbar() {
     return (
         <nav className="bg-white border-b border-gray-200 py-3 px-4 md:px-6 sticky top-0 z-50">
             <div className="max-w-7xl mx-auto flex items-center justify-between">
-                <Link to="/" className="text-2xl font-bold text-brand-navy">
-                    <span className="text-brand-blue">Disha</span> Logistics
+                <Link to="/" className="flex items-center gap-3">
+                    <img
+                        src="/src/assets/logo.png"
+                        alt="Disha Logistics logo"
+                        className="h-10 w-auto object-contain"
+                    />
+                    <div className="hidden sm:block text-2xl font-bold text-brand-navy">
+                        <span className="text-brand-blue">Disha</span> Logistics
+                    </div>
                 </Link>
                 <div className="flex items-center gap-4">
                     {!isAuthenticated ? (

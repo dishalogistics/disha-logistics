@@ -233,7 +233,7 @@ export default function BookShipment() {
                 </div>
 
                 {/* Price Estimate & Submit */}
-                <div className="bg-white p-6 rounded-xl shadow flex flex-col md:flex-row justify-between items-center gap-4">
+                {/* <div className="bg-white p-6 rounded-xl shadow flex flex-col md:flex-row justify-between items-center gap-4">
                     <div>
                         <button
                             type="button"
@@ -249,7 +249,7 @@ export default function BookShipment() {
                     <Button type="submit" isLoading={isSubmitting}>
                         Confirm Booking
                     </Button>
-                </div>
+                </div> */}
             </form>
         </div>
     );

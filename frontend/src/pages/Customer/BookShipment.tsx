@@ -3,10 +3,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { bookingSchema } from "@/utils/validators";
 import { Input } from "@/components/common/Input";
-// import { Button } from "@/components/common/Button";
 import { shipmentApi } from "@/api/shipment.api";
 import toast from "react-hot-toast";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 type BookingFormType = z.infer<typeof bookingSchema>;
@@ -25,8 +23,7 @@ export default function BookShipment() {
     const {
         register,
         handleSubmit,
-        watch,
-        formState: { errors, isSubmitting },
+        formState: { errors },
     } = useForm({
         resolver: zodResolver(bookingSchema),
         defaultValues: {
@@ -39,36 +36,6 @@ export default function BookShipment() {
     });
 
     const navigate = useNavigate();
-    const [estimatedPrice, setEstimatedPrice] = useState<number | null>(null);
-
-    const watchWeight = watch("weight");
-    const watchVehicle = watch("vehicleType");
-    const watchSpeed = watch("deliverySpeed");
-    const watchInsurance = watch("insurance");
-
-    const calculatePrice = async () => {
-        // ✅ Ensure all required fields are defined before using them
-        if (!watchWeight || !watchVehicle || !watchSpeed) return;
-
-        const rates: Record<string, number> = {
-            "Mini Truck": 8,
-            "14FT": 10,
-            "17FT": 12,
-            Container: 15,
-            Trailer: 18,
-        };
-        const speedMul: Record<string, number> = {
-            Standard: 1,
-            Express: 1.5,
-            "Same Day": 2.5,
-        };
-        const base = rates[watchVehicle] ?? 10;
-        const weightFactor = watchWeight > 1000 ? 0.8 : 1;
-        const price =
-            base * 100 * weightFactor * speedMul[watchSpeed] +
-            (watchInsurance ? 50 : 0);
-        setEstimatedPrice(Math.round(price));
-    };
 
     const onSubmit = async (data: BookingFormType) => {
         try {
@@ -232,24 +199,15 @@ export default function BookShipment() {
                     <Input label="Notes (optional)" {...register("notes")} />
                 </div>
 
-                {/* Price Estimate & Submit */}
-                {/* <div className="bg-white p-6 rounded-xl shadow flex flex-col md:flex-row justify-between items-center gap-4">
-                    <div>
-                        <button
-                            type="button"
-                            onClick={calculatePrice}
-                            className="text-brand-blue underline"
-                        >
-                            Calculate Price
-                        </button>
-                        {estimatedPrice !== null && (
-                            <div className="text-2xl font-bold">₹{estimatedPrice}</div>
-                        )}
-                    </div>
-                    <Button type="submit" isLoading={isSubmitting}>
+                {/* Submit Button */}
+                <div className="bg-white p-6 rounded-xl shadow">
+                    <button
+                        type="submit"
+                        className="w-full bg-blue-600 text-white py-3 rounded-xl font-semibold hover:bg-blue-700 transition-colors"
+                    >
                         Confirm Booking
-                    </Button>
-                </div> */}
+                    </button>
+                </div>
             </form>
         </div>
     );

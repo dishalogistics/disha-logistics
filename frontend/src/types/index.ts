@@ -35,7 +35,7 @@ export interface Shipment {
     length?: number;
     width?: number;
     height?: number;
-    unit?: 'cm' | 'in';
+    unit?: 'cm' | 'in' | 'ft';
   };
   vehicleType: string;
   deliverySpeed: string;

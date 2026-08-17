@@ -70,7 +70,7 @@ const dimensionsSchema = new mongoose.Schema(
 
         unit: {
             type: String,
-            enum: ["cm", "in"],
+            enum: ["cm", "in", "ft"],
             default: "cm",
         },
     },

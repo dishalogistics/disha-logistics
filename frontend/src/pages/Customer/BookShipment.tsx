@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { bookingSchema } from "@/utils/validators";
@@ -20,6 +20,11 @@ const goodsTypes = [
     "Documents",
     "Other",
 ];
+const dimensionUnits = [
+    { value: "cm", label: "Centimeter (cm)" },
+    { value: "in", label: "Inch (in)" },
+    { value: "ft", label: "Feet (ft)" },
+];
 
 export default function BookShipment() {
     const queryClient = useQueryClient();
@@ -29,6 +34,7 @@ export default function BookShipment() {
         register,
         handleSubmit,
         formState: { errors },
+        control,
     } = useForm({
         resolver: zodResolver(bookingSchema),
         defaultValues: {
@@ -39,6 +45,8 @@ export default function BookShipment() {
             deliveryAddress: { country: "India" },
         },
     });
+
+    const dimensionUnit = useWatch({ control, name: "dimensions.unit" });
 
     const onSubmit = async (data: BookingFormType) => {
         try {
@@ -148,19 +156,32 @@ export default function BookShipment() {
                             error={errors.weight?.message}
                         />
                     </div>
-                    <div className="grid grid-cols-3 gap-4 mt-4">
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4">
+                        <div>
+                            <label className="block text-sm font-medium mb-2">Measurement Unit</label>
+                            <select
+                                {...register("dimensions.unit")}
+                                className="w-full rounded-xl border border-gray-300 px-4 py-2.5"
+                            >
+                                {dimensionUnits.map((unit) => (
+                                    <option key={unit.value} value={unit.value}>
+                                        {unit.label}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
                         <Input
-                            label="Length (cm)"
+                            label={`Length (${dimensionUnit || "cm"})`}
                             type="number"
                             {...register("dimensions.length", { valueAsNumber: true })}
                         />
                         <Input
-                            label="Width (cm)"
+                            label={`Width (${dimensionUnit || "cm"})`}
                             type="number"
                             {...register("dimensions.width", { valueAsNumber: true })}
                         />
                         <Input
-                            label="Height (cm)"
+                            label={`Height (${dimensionUnit || "cm"})`}
                             type="number"
                             {...register("dimensions.height", { valueAsNumber: true })}
                         />

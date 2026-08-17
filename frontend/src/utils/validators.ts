@@ -5,7 +5,7 @@ export const addressSchema = z.object({
     city: z.string().min(1, "City is required"),
     state: z.string().min(1, "State is required"),
     pincode: z.string().length(6, "Pincode must be 6 digits"),
-    country: z.string().min(1, "Country is required"), // ✅ required, not optional
+    country: z.string().min(1, "Country is required"),
 });
 
 export const bookingSchema = z.object({
@@ -25,7 +25,7 @@ export const bookingSchema = z.object({
             length: z.number().optional(),
             width: z.number().optional(),
             height: z.number().optional(),
-            unit: z.enum(["cm", "in"]).default("cm"),
+            unit: z.enum(["cm", "in", "ft"]).default("cm"),
         })
         .optional(),
     vehicleType: z.enum(["Mini Truck", "14FT", "17FT", "Container", "Trailer"]),

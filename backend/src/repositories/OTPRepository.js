@@ -9,6 +9,13 @@ class OTPRepository extends BaseRepository {
     async findUnverifiedOTP(email, purpose) {
         return this.findOne({ email, purpose, verified: false }, '+otp');
     }
+
+    async findLatestOTP(email, purpose) {
+        return this.model
+            .findOne({ email, purpose })
+            .sort({ createdAt: -1 })
+            .select('+otp');
+    }
 }
 
 module.exports = new OTPRepository();

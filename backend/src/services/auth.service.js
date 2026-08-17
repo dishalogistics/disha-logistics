@@ -43,7 +43,7 @@ class AuthService {
     }
 
     async verifyOTP(email, otp, purpose) {
-        const record = await OTPRepository.findUnverifiedOTP(email, purpose);
+        const record = await OTPRepository.findLatestOTP(email, purpose);
         if (!record) throw new AppError('Invalid OTP or already verified', 400);
         if (record.expiresAt < new Date()) throw new AppError('OTP expired', 400);
 
@@ -57,7 +57,9 @@ class AuthService {
             throw new AppError('Invalid OTP', 400);
         }
 
-        await OTPRepository.update(record._id, { verified: true });
+        if (purpose !== 'RESET_PASSWORD') {
+            await OTPRepository.update(record._id, { verified: true });
+        }
 
         if (purpose === 'REGISTER') {
             const user = await UserRepository.findByEmail(email);
@@ -165,7 +167,7 @@ class AuthService {
     }
 
     async resetPassword(email, otp, newPassword) {
-        const record = await OTPRepository.findUnverifiedOTP(email, 'RESET_PASSWORD');
+        const record = await OTPRepository.findLatestOTP(email, 'RESET_PASSWORD');
         if (!record) throw new AppError('Invalid OTP', 400);
         if (record.expiresAt < new Date()) throw new AppError('OTP expired', 400);
         if (record.otp !== otp) throw new AppError('Invalid OTP', 400);

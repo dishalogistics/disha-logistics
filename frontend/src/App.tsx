@@ -24,27 +24,28 @@ function App() {
     location.pathname.startsWith(path),
   );
 
-  // Simple redirect logic (you can enhance)
   useEffect(() => {
-    // If user is on login/register and already authenticated, redirect to dashboard
-    const path = window.location.pathname;
-    if (isAuthenticated && user) {
-      if (
-        path === "/login" ||
-        path === "/register" ||
-        path === "/verify-otp" ||
-        path === "/forgot-password" ||
-        path === "/reset-password"
-      ) {
-        const role = user.role;
-        if (role === "CUSTOMER") navigate("/customer/dashboard");
-        else if (role === "TRANSPORTER") navigate("/transporter/dashboard");
-        else if (role === "ADMIN" || role === "SUPER_ADMIN")
-          navigate("/admin/dashboard");
-        else navigate("/");
-      }
+    if (!isAuthenticated || !user) return;
+
+    const path = location.pathname;
+    const publicAuthPaths = [
+      "/",
+      "/login",
+      "/register",
+      "/verify-otp",
+      "/forgot-password",
+      "/reset-password",
+    ];
+
+    if (publicAuthPaths.includes(path)) {
+      const role = user.role;
+      if (role === "CUSTOMER") navigate("/customer/dashboard", { replace: true });
+      else if (role === "TRANSPORTER") navigate("/transporter/dashboard", { replace: true });
+      else if (role === "ADMIN" || role === "SUPER_ADMIN")
+        navigate("/admin/dashboard", { replace: true });
+      else navigate("/", { replace: true });
     }
-  }, [isAuthenticated, user, navigate]);
+  }, [isAuthenticated, user, location.pathname, navigate]);
 
   return (
     <QueryClientProvider client={queryClient}>

@@ -148,12 +148,14 @@ class AdminService {
         ]);
         const revenue = totalRevenue.length > 0 ? totalRevenue[0].total : 0;
 
-        // Recent shipments (last 5)
+        // Recent shipments (last 5) - WITH BOTH POPULATES
         const recentShipments = await ShipmentRepository.model
             .find()
             .sort({ createdAt: -1 })
             .limit(5)
-            .populate("customer", "firstName lastName email");
+            .populate("customer", "firstName lastName email")
+            .populate("transporter", "companyName firstName lastName email")
+            .populate("driver", "firstName lastName email");
 
         return {
             users: {

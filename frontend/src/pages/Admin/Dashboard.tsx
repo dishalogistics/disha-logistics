@@ -85,10 +85,21 @@ export default function AdminDashboard() {
                                         {s.customer?.firstName} {s.customer?.lastName}
                                     </td>
                                     <td className="px-6 py-4 text-sm">
-                                        {s.pickupAddress.city} → {s.deliveryAddress.city}
+                                        {s.pickupAddress?.city} → {s.deliveryAddress?.city}
                                     </td>
                                     <td className="px-6 py-4">
                                         <StatusBadge status={s.status} />
+                                    </td>
+                                    <td className="px-6 py-4 text-sm">
+                                        {/* Transporter name display with fallback */}
+                                        {s.transporter ? (
+                                            <span className="font-medium">
+                                                {s.transporter.companyName ||
+                                                    `${s.transporter.firstName} ${s.transporter.lastName}`}
+                                            </span>
+                                        ) : (
+                                            <span className="text-gray-400 italic">Not assigned</span>
+                                        )}
                                     </td>
                                 </tr>
                             ))}

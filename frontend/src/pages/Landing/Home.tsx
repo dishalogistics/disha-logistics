@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import {
   FiArrowRight,
   FiCheckCircle,
-  // FiMapPin,
+  FiMapPin,
   FiShield,
 } from "react-icons/fi";
 
@@ -10,11 +10,11 @@ export default function Home() {
   return (
     <div className="overflow-hidden bg-[#f7faff]">
       {/* Hero Section */}
-      <section className="relative bg-[#0b1a33] px-5 pb-20 pt-16 text-white lg:pb-28 lg:pt-24">
+      {/* <section className="relative bg-[#0b1a33] px-5 pb-20 pt-16 text-white lg:pb-28 lg:pt-24">
         <div className="absolute right-0 top-0 h-full w-1/2 bg-[radial-gradient(circle_at_center,rgba(21,94,239,.55),transparent_60%)]" />
 
         <div className="relative mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1.1fr_.9fr] lg:items-center">
-          {/* <div>
+          <div>
             <p className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-sm text-blue-100">
               <FiMapPin className="text-[#ffb703]" />
               Pan-India road freight, made simple
@@ -55,17 +55,20 @@ export default function Home() {
                 Live trip updates
               </span>
             </div>
-          </div> */}
-          <div className="min-h-screen w-full bg-white">
-            <img
-              src="/home.jpeg"
-              alt="Disha Logistics"
-              className="min-h-screen w-full object-cover"
-            />
           </div>
         </div>
-      </section>
+      </section> */}
+      {/* Hero Section */}  
+      <section className="relative h-screen w-full overflow-hidden">
+        <img
+          src="/home.jpeg"
+          alt="Disha Logistics"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
 
+        {/* Optional dark overlay for readability */}
+        <div className="absolute inset-0 bg-black/10" />
+      </section>
       {/* How It Works Section */}
       <section id="how-it-works" className="mx-auto max-w-7xl px-5 py-16">
         <div className="text-center">

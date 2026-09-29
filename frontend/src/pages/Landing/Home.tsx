@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import {
   FiArrowRight,
   FiCheckCircle,
-  FiMapPin,
+  // FiMapPin,
   FiShield,
 } from "react-icons/fi";
 
@@ -14,7 +14,7 @@ export default function Home() {
         <div className="absolute right-0 top-0 h-full w-1/2 bg-[radial-gradient(circle_at_center,rgba(21,94,239,.55),transparent_60%)]" />
 
         <div className="relative mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1.1fr_.9fr] lg:items-center">
-          <div>
+          {/* <div>
             <p className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-sm text-blue-100">
               <FiMapPin className="text-[#ffb703]" />
               Pan-India road freight, made simple
@@ -55,6 +55,13 @@ export default function Home() {
                 Live trip updates
               </span>
             </div>
+          </div> */}
+          <div className="min-h-screen w-full bg-white">
+            <img
+              src="/home.jpeg"
+              alt="Disha Logistics"
+              className="min-h-screen w-full object-cover"
+            />
           </div>
         </div>
       </section>

@@ -8,11 +8,7 @@ import {
   FiPhone,
   FiStar,
 } from "react-icons/fi";
-import {
-  FaInstagram,
-  FaFacebook,
-  FaLinkedin,
-} from "react-icons/fa";
+import { FaInstagram, FaFacebook, FaLinkedin } from "react-icons/fa";
 
 const testimonials = [
   {
@@ -50,67 +46,85 @@ const testimonials = [
 export default function Home() {
   return (
     <div className="overflow-hidden bg-[#f7faff]">
-      {/* Hero Section */}
-      {/* <section className="relative bg-[#0b1a33] px-5 pb-20 pt-16 text-white lg:pb-28 lg:pt-24">
+      <section className="relative overflow-hidden px-5 pb-16 pt-16 text-white lg:pb-24 lg:pt-24">
+        <div
+          className="absolute inset-0 scale-110 bg-cover bg-center bg-no-repeat blur-md"
+          style={{ backgroundImage: "url('/home.jpeg')" }}
+        />
+
+        <div className="absolute inset-0 bg-[#0b1a33]/65" />
+
         <div className="absolute right-0 top-0 h-full w-1/2 bg-[radial-gradient(circle_at_center,rgba(21,94,239,.55),transparent_60%)]" />
 
-        <div className="relative mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1.1fr_.9fr] lg:items-center">
-          <div>
-            <p className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-sm text-blue-100">
-              <FiMapPin className="text-[#ffb703]" />
-              Pan-India road freight, made simple
-            </p>
+        <div className="relative mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-[.95fr_1.05fr] lg:gap-16">
+          <div className="relative z-10 flex items-center justify-center lg:justify-start">
+            <div className="relative w-full max-w-[620px]">
+              <div className="absolute -inset-5 rounded-[2rem] bg-blue-500/20 blur-2xl" />
 
-            <h1 className="mt-6 max-w-3xl text-4xl font-extrabold leading-tight tracking-tight sm:text-6xl">
-              Every truck. Every route.{" "}
-              <span className="text-[#ffb703]">One clear view.</span>
-            </h1>
+              <div className="relative overflow-hidden rounded-[2rem] border border-white/20 bg-white/10 shadow-2xl">
+                <img
+                  src="/home.jpeg"
+                  alt="Disha Logistics"
+                  className="h-auto max-h-[500px] w-full object-cover"
+                />
 
-            <p className="mt-5 max-w-xl text-lg leading-8 text-slate-300">
-              Book, move and manage your road freight across India with Disha
-              Logistics—built for businesses, fleet owners and operations teams.
-            </p>
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0b1a33]/20 via-transparent to-white/5" />
+              </div>
+            </div>
+          </div>
 
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link
-                to="/register"
-                className="inline-flex items-center gap-2 rounded-xl bg-[#ffb703] px-5 py-3.5 font-bold text-[#0b1a33]"
-              >
-                Start shipping <FiArrowRight />
-              </Link>
-              <a
-                href="#how-it-works"
-                className="rounded-xl border border-white/25 px-5 py-3.5 font-semibold hover:bg-white/10"
-              >
-                How it works
-              </a>
+          <div className="relative z-10 max-w-2xl lg:pl-4">
+            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-blue-300/30 bg-blue-500/15 px-4 py-2 text-sm font-medium text-blue-100 backdrop-blur-sm">
+              <FiShield className="text-blue-300" />
+              Reliable Logistics Partner
             </div>
 
-            <div className="mt-9 flex flex-wrap gap-x-6 gap-y-3 text-sm text-slate-300">
-              <span className="inline-flex items-center gap-2">
-                <FiCheckCircle className="text-[#ffb703]" />
-                GST-ready invoicing
-              </span>
-              <span className="inline-flex items-center gap-2">
-                <FiCheckCircle className="text-[#ffb703]" />
-                Live trip updates
-              </span>
+            <h1 className="text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
+              Moving Your Business
+              <span className="block text-blue-400">Forward</span>
+            </h1>
+
+            <p className="mt-6 max-w-xl text-base leading-7 text-slate-200 sm:text-lg">
+              Reliable, secure and efficient logistics solutions designed to
+              keep your business moving across India and beyond.
+            </p>
+
+            <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+              <Link
+                to="/contact"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-3.5 font-semibold text-white shadow-lg shadow-blue-900/30 transition hover:bg-blue-500"
+              >
+                Get Started
+                <FiArrowRight />
+              </Link>
+
+              <Link
+                to="/services"
+                className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/25 bg-white/10 px-6 py-3.5 font-semibold text-white backdrop-blur-sm transition hover:bg-white/15"
+              >
+                Explore Services
+              </Link>
+            </div>
+
+            <div className="mt-10 grid gap-4 sm:grid-cols-3">
+              <div className="flex items-center gap-2 text-sm text-slate-200">
+                <FiCheckCircle className="shrink-0 text-blue-400" />
+                Pan India Delivery
+              </div>
+
+              <div className="flex items-center gap-2 text-sm text-slate-200">
+                <FiCheckCircle className="shrink-0 text-blue-400" />
+                Secure Handling
+              </div>
+
+              <div className="flex items-center gap-2 text-sm text-slate-200">
+                <FiCheckCircle className="shrink-0 text-blue-400" />
+                On-Time Delivery
+              </div>
             </div>
           </div>
         </div>
-      </section> */}
-      {/* Hero Section */}
-      <section className="relative h-screen w-full overflow-hidden">
-        <img
-          src="/home.jpeg"
-          alt="Disha Logistics"
-          className="absolute inset-0 h-full w-full object-cover"
-        />
-
-        {/* Subtle overlay */}
-        <div className="absolute inset-0 bg-black/10" />
       </section>
-
 
       {/* How It Works Section */}
 
@@ -159,13 +173,9 @@ export default function Home() {
                 0{index + 1}
               </div>
 
-              <h3 className="mt-5 text-xl font-bold text-[#0b1a33]">
-                {title}
-              </h3>
+              <h3 className="mt-5 text-xl font-bold text-[#0b1a33]">{title}</h3>
 
-              <p className="mt-2 leading-7 text-slate-500">
-                {text}
-              </p>
+              <p className="mt-2 leading-7 text-slate-500">{text}</p>
 
               <Link
                 to="/register"
@@ -189,23 +199,17 @@ export default function Home() {
             ["98%", "On-time delivery"],
           ].map(([value, label]) => (
             <div key={label}>
-              <p className="text-4xl font-extrabold text-[#0b1a33]">
-                {value}
-              </p>
+              <p className="text-4xl font-extrabold text-[#0b1a33]">{value}</p>
 
-              <p className="mt-2 text-sm font-medium text-slate-500">
-                {label}
-              </p>
+              <p className="mt-2 text-sm font-medium text-slate-500">{label}</p>
             </div>
           ))}
         </div>
       </section>
 
-
       {/* TESTIMONIALS */}
       <section className="bg-[#f7faff] px-5 py-16 lg:py-20">
         <div className="mx-auto max-w-7xl">
-
           {/* Heading */}
           <div className="text-center">
             <p className="text-sm font-bold tracking-widest text-[#155eef]">
@@ -222,10 +226,8 @@ export default function Home() {
             </p>
           </div>
 
-
           {/* Testimonials */}
           <div className="mt-10 flex snap-x snap-mandatory gap-5 overflow-x-auto pb-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:grid lg:grid-cols-3 lg:overflow-visible">
-
             {testimonials.map((testimonial) => (
               <article
                 key={testimonial.company}
@@ -234,11 +236,7 @@ export default function Home() {
                 {/* Stars */}
                 <div className="flex gap-1 text-[#ffb703]">
                   {[1, 2, 3, 4, 5].map((star) => (
-                    <FiStar
-                      key={star}
-                      size={17}
-                      className="fill-current"
-                    />
+                    <FiStar key={star} size={17} className="fill-current" />
                   ))}
                 </div>
 
@@ -265,11 +263,9 @@ export default function Home() {
                 </div>
               </article>
             ))}
-
           </div>
         </div>
       </section>
-
 
       {/*COMPLIANCE*/}
       <section className="mx-auto grid max-w-7xl gap-8 px-5 py-16 lg:grid-cols-2 lg:items-center">
@@ -329,7 +325,6 @@ export default function Home() {
      */}
       <section className="mx-auto max-w-7xl px-5 pb-16">
         <div className="overflow-hidden rounded-[2rem] bg-[#0b1a33] px-6 py-12 text-white shadow-xl sm:px-10 lg:px-14">
-
           <div className="grid gap-10 lg:grid-cols-[1.1fr_.9fr] lg:items-center">
             {/* Left Content */}
             <div>
@@ -347,7 +342,6 @@ export default function Home() {
               </p>
 
               <div className="mt-7 flex flex-wrap gap-3">
-
                 <a
                   href="mailto:info@dishalogistic.in"
                   className="inline-flex items-center gap-2 rounded-xl bg-white px-5 py-3 font-bold text-[#0b1a33] transition hover:bg-blue-50"
@@ -363,19 +357,14 @@ export default function Home() {
                   <FiPhone />
                   Call us
                 </a>
-
               </div>
             </div>
 
-
             {/* Right */}
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
-
               {/* Email */}
               <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
-                <p className="text-sm text-slate-400">
-                  Mail us on
-                </p>
+                <p className="text-sm text-slate-400">Mail us on</p>
 
                 <a
                   href="mailto:info@dishalogistic.in"
@@ -385,15 +374,11 @@ export default function Home() {
                 </a>
               </div>
 
-
               {/* Phone */}
               <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
-                <p className="text-sm text-slate-400">
-                  Call us on
-                </p>
+                <p className="text-sm text-slate-400">Call us on</p>
 
                 <div className="mt-1 flex flex-wrap gap-x-4 gap-y-1 font-semibold">
-
                   <a
                     href="tel:9169387909"
                     className="transition hover:text-blue-300"
@@ -407,19 +392,14 @@ export default function Home() {
                   >
                     6306239625
                   </a>
-
                 </div>
               </div>
 
-
               {/* Social */}
               <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
-                <p className="text-sm text-slate-400">
-                  Find us on
-                </p>
+                <p className="text-sm text-slate-400">Find us on</p>
 
                 <div className="mt-3 flex gap-3">
-
                   <a
                     href="https://www.instagram.com/dishalogistics?igsh=MXBtenZ1ODZnOGk4ZQ=="
                     target="_blank"
@@ -449,28 +429,22 @@ export default function Home() {
                   >
                     <FaLinkedin size={20} />
                   </a>
-
                 </div>
               </div>
 
-
               {/* Branch */}
               <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
-                <p className="text-sm text-slate-400">
-                  Branches
-                </p>
+                <p className="text-sm text-slate-400">Branches</p>
 
                 <p className="mt-1 flex items-center gap-2 font-semibold">
                   <FiMapPin className="text-blue-300" />
                   Gorakhpur
                 </p>
               </div>
-
             </div>
           </div>
         </div>
       </section>
-
     </div>
   );
 }

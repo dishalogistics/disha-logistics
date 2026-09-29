@@ -4,12 +4,48 @@ import {
   FiCheckCircle,
   FiMapPin,
   FiShield,
-  FiInstagram,
-  FiFacebook,
-  FiLinkedin,
   FiMail,
   FiPhone,
+  FiStar,
 } from "react-icons/fi";
+import {
+  FaInstagram,
+  FaFacebook,
+  FaLinkedin,
+} from "react-icons/fa";
+
+const testimonials = [
+  {
+    title: "Competitive Rates & Quality Service",
+    text: "Disha Logistics offers competitive transportation rates without compromising on service quality. Their team is cooperative, responsive, and always ready to assist.",
+    company: "Bancool Trading Company",
+    location: "Gorakhpur",
+  },
+  {
+    title: "Reliable Service, Every Time",
+    text: "Disha Logistics has consistently provided us with dependable transportation services. Their team is highly professional, responsive, and committed to ensuring the safe and timely delivery of our goods.",
+    company: "Asian Traders",
+    location: "Nepal",
+  },
+  {
+    title: "On-Time Delivery",
+    text: "We appreciate the punctuality and coordination of the Disha Logistics team. They keep us well-informed throughout the transit process and ensure smooth and timely deliveries.",
+    company: "Goodryde International",
+    location: "Bhiwadi, Rajasthan",
+  },
+  {
+    title: "Safe & Hassle-Free Transportation",
+    text: "Our consignments are handled with utmost care and delivered safely. Disha Logistics has become a trusted transportation partner for our regular business needs.",
+    company: "Safal Motor Centre",
+    location: "Nepal",
+  },
+  {
+    title: "Professional & Cooperative Team",
+    text: "Highly professional service with excellent coordination. Whenever we require a vehicle, the Disha Logistics team responds promptly and manages transportation efficiently.",
+    company: "Astral Limited",
+    location: "Ahmedabad",
+  },
+];
 
 export default function Home() {
   return (
@@ -71,19 +107,30 @@ export default function Home() {
           className="absolute inset-0 h-full w-full object-cover"
         />
 
-        {/* Optional dark overlay for readability */}
+        {/* Subtle overlay */}
         <div className="absolute inset-0 bg-black/10" />
       </section>
+
+
       {/* How It Works Section */}
-      <section id="how-it-works" className="mx-auto max-w-7xl px-5 py-16">
+
+      <section
+        id="how-it-works"
+        className="mx-auto max-w-7xl px-5 py-16 lg:py-20"
+      >
         <div className="text-center">
           <p className="text-sm font-bold tracking-widest text-[#155eef]">
             ONE PLATFORM, THREE WORKFLOWS
           </p>
 
-          <h2 className="mt-2 text-3xl font-extrabold">
+          <h2 className="mt-2 text-3xl font-extrabold text-[#0b1a33] sm:text-4xl">
             Logistics that works for everyone
           </h2>
+
+          <p className="mx-auto mt-4 max-w-2xl leading-7 text-slate-500">
+            Simple, reliable and transparent logistics solutions designed for
+            customers, transporters and operations teams.
+          </p>
         </div>
 
         <div className="mt-10 grid gap-5 md:grid-cols-3">
@@ -106,21 +153,26 @@ export default function Home() {
           ].map(([title, text, cta], index) => (
             <article
               key={title}
-              className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
+              className="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg"
             >
-              <div className="grid h-11 w-11 place-items-center rounded-xl bg-blue-50 font-extrabold text-[#155eef]">
+              <div className="grid h-11 w-11 place-items-center rounded-xl bg-blue-50 font-extrabold text-[#155eef] transition group-hover:bg-[#155eef] group-hover:text-white">
                 0{index + 1}
               </div>
 
-              <h3 className="mt-5 text-xl font-bold">{title}</h3>
+              <h3 className="mt-5 text-xl font-bold text-[#0b1a33]">
+                {title}
+              </h3>
 
-              <p className="mt-2 leading-7 text-slate-500">{text}</p>
+              <p className="mt-2 leading-7 text-slate-500">
+                {text}
+              </p>
 
               <Link
                 to="/register"
                 className="mt-6 inline-flex items-center gap-1 font-bold text-[#155eef]"
               >
-                {cta} <FiArrowRight />
+                {cta}
+                <FiArrowRight />
               </Link>
             </article>
           ))}
@@ -137,22 +189,96 @@ export default function Home() {
             ["98%", "On-time delivery"],
           ].map(([value, label]) => (
             <div key={label}>
-              <p className="text-4xl font-extrabold text-[#0b1a33]">{value}</p>
+              <p className="text-4xl font-extrabold text-[#0b1a33]">
+                {value}
+              </p>
 
-              <p className="mt-2 text-sm font-medium text-slate-500">{label}</p>
+              <p className="mt-2 text-sm font-medium text-slate-500">
+                {label}
+              </p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Compliance Section */}
+
+      {/* TESTIMONIALS */}
+      <section className="bg-[#f7faff] px-5 py-16 lg:py-20">
+        <div className="mx-auto max-w-7xl">
+
+          {/* Heading */}
+          <div className="text-center">
+            <p className="text-sm font-bold tracking-widest text-[#155eef]">
+              WHAT OUR CLIENTS SAY
+            </p>
+
+            <h2 className="mt-2 text-3xl font-extrabold text-[#0b1a33] sm:text-4xl">
+              Trusted by businesses
+            </h2>
+
+            <p className="mx-auto mt-4 max-w-2xl leading-7 text-slate-500">
+              Reliable transportation, responsive coordination and dependable
+              service trusted by businesses across different locations.
+            </p>
+          </div>
+
+
+          {/* Testimonials */}
+          <div className="mt-10 flex snap-x snap-mandatory gap-5 overflow-x-auto pb-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:grid lg:grid-cols-3 lg:overflow-visible">
+
+            {testimonials.map((testimonial) => (
+              <article
+                key={testimonial.company}
+                className="min-w-[88%] snap-start rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg sm:min-w-[70%] lg:min-w-0"
+              >
+                {/* Stars */}
+                <div className="flex gap-1 text-[#ffb703]">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <FiStar
+                      key={star}
+                      size={17}
+                      className="fill-current"
+                    />
+                  ))}
+                </div>
+
+                {/* Title */}
+                <h3 className="mt-5 text-lg font-bold text-[#0b1a33]">
+                  {testimonial.title}
+                </h3>
+
+                {/* Review */}
+                <p className="mt-3 leading-7 text-slate-600">
+                  &ldquo;{testimonial.text}&rdquo;
+                </p>
+
+                {/* Company */}
+                <div className="mt-6 border-t border-slate-100 pt-5">
+                  <p className="font-bold text-[#0b1a33]">
+                    — {testimonial.company}
+                  </p>
+
+                  <div className="mt-1 flex items-center gap-1 text-sm text-slate-500">
+                    <FiMapPin size={14} />
+                    {testimonial.location}
+                  </div>
+                </div>
+              </article>
+            ))}
+
+          </div>
+        </div>
+      </section>
+
+
+      {/*COMPLIANCE*/}
       <section className="mx-auto grid max-w-7xl gap-8 px-5 py-16 lg:grid-cols-2 lg:items-center">
         <div>
           <p className="text-sm font-bold tracking-widest text-[#155eef]">
             COMPLIANCE, WITHOUT THE CHAOS
           </p>
 
-          <h2 className="mt-3 text-3xl font-extrabold">
+          <h2 className="mt-3 text-3xl font-extrabold text-[#0b1a33] sm:text-4xl">
             Freight documents where your team needs them.
           </h2>
 
@@ -166,14 +292,15 @@ export default function Home() {
             to="/register"
             className="mt-6 inline-flex items-center gap-2 font-bold text-[#155eef]"
           >
-            Explore the platform <FiArrowRight />
+            Explore the platform
+            <FiArrowRight />
           </Link>
         </div>
 
         <div className="rounded-3xl border border-blue-100 bg-blue-50 p-7">
           <FiShield size={30} className="text-[#155eef]" />
 
-          <h3 className="mt-5 text-xl font-bold">
+          <h3 className="mt-5 text-xl font-bold text-[#0b1a33]">
             Built for Indian road transport
           </h3>
 
@@ -202,6 +329,7 @@ export default function Home() {
      */}
       <section className="mx-auto max-w-7xl px-5 pb-16">
         <div className="overflow-hidden rounded-[2rem] bg-[#0b1a33] px-6 py-12 text-white shadow-xl sm:px-10 lg:px-14">
+
           <div className="grid gap-10 lg:grid-cols-[1.1fr_.9fr] lg:items-center">
             {/* Left Content */}
             <div>
@@ -218,8 +346,8 @@ export default function Home() {
                 Logistics? Our team is ready to help.
               </p>
 
-              {/* CTA Buttons */}
               <div className="mt-7 flex flex-wrap gap-3">
+
                 <a
                   href="mailto:info@dishalogistic.in"
                   className="inline-flex items-center gap-2 rounded-xl bg-white px-5 py-3 font-bold text-[#0b1a33] transition hover:bg-blue-50"
@@ -235,14 +363,19 @@ export default function Home() {
                   <FiPhone />
                   Call us
                 </a>
+
               </div>
             </div>
 
-            {/* Right Contact Details */}
+
+            {/* Right */}
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
+
               {/* Email */}
               <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
-                <p className="text-sm text-slate-400">Mail us on</p>
+                <p className="text-sm text-slate-400">
+                  Mail us on
+                </p>
 
                 <a
                   href="mailto:info@dishalogistic.in"
@@ -252,11 +385,15 @@ export default function Home() {
                 </a>
               </div>
 
+
               {/* Phone */}
               <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
-                <p className="text-sm text-slate-400">Call us on</p>
+                <p className="text-sm text-slate-400">
+                  Call us on
+                </p>
 
                 <div className="mt-1 flex flex-wrap gap-x-4 gap-y-1 font-semibold">
+
                   <a
                     href="tel:9169387909"
                     className="transition hover:text-blue-300"
@@ -270,15 +407,19 @@ export default function Home() {
                   >
                     6306239625
                   </a>
+
                 </div>
               </div>
 
-              {/* Social Media */}
+
+              {/* Social */}
               <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
-                <p className="text-sm text-slate-400">Find us on</p>
+                <p className="text-sm text-slate-400">
+                  Find us on
+                </p>
 
                 <div className="mt-3 flex gap-3">
-                  {/* Instagram */}
+
                   <a
                     href="https://www.instagram.com/dishalogistics?igsh=MXBtenZ1ODZnOGk4ZQ=="
                     target="_blank"
@@ -286,10 +427,9 @@ export default function Home() {
                     aria-label="Instagram"
                     className="rounded-xl border border-white/10 p-3 transition hover:bg-white/10"
                   >
-                    <FiInstagram size={20} />
+                    <FaInstagram size={20} />
                   </a>
 
-                  {/* Facebook */}
                   <a
                     href="https://www.facebook.com/profile.php?id=61592903228244&utm_source=chatgpt.com"
                     target="_blank"
@@ -297,10 +437,9 @@ export default function Home() {
                     aria-label="Facebook"
                     className="rounded-xl border border-white/10 p-3 transition hover:bg-white/10"
                   >
-                    <FiFacebook size={20} />
+                    <FaFacebook size={20} />
                   </a>
 
-                  {/* LinkedIn */}
                   <a
                     href="https://linkedin.com/company/disha-logistics"
                     target="_blank"
@@ -308,24 +447,30 @@ export default function Home() {
                     aria-label="LinkedIn"
                     className="rounded-xl border border-white/10 p-3 transition hover:bg-white/10"
                   >
-                    <FiLinkedin size={20} />
+                    <FaLinkedin size={20} />
                   </a>
+
                 </div>
               </div>
 
+
               {/* Branch */}
               <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
-                <p className="text-sm text-slate-400">Branches</p>
+                <p className="text-sm text-slate-400">
+                  Branches
+                </p>
 
                 <p className="mt-1 flex items-center gap-2 font-semibold">
                   <FiMapPin className="text-blue-300" />
                   Gorakhpur
                 </p>
               </div>
+
             </div>
           </div>
         </div>
       </section>
+
     </div>
   );
 }

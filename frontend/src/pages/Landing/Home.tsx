@@ -91,19 +91,19 @@ export default function Home() {
 
             <div className="mt-8 flex flex-col gap-4 sm:flex-row">
               <Link
-                to="/contact"
+                to="/register"
                 className="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-3.5 font-semibold text-white shadow-lg shadow-blue-900/30 transition hover:bg-blue-500"
               >
                 Get Started
                 <FiArrowRight />
               </Link>
 
-              <Link
+              {/* <Link
                 to="/services"
                 className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/25 bg-white/10 px-6 py-3.5 font-semibold text-white backdrop-blur-sm transition hover:bg-white/15"
               >
                 Explore Services
-              </Link>
+              </Link> */}
             </div>
 
             <div className="mt-10 grid gap-4 sm:grid-cols-3">

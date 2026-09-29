@@ -4,6 +4,11 @@ import {
   FiCheckCircle,
   FiMapPin,
   FiShield,
+  FiInstagram,
+  FiFacebook,
+  FiLinkedin,
+  FiMail,
+  FiPhone,
 } from "react-icons/fi";
 
 export default function Home() {
@@ -58,7 +63,7 @@ export default function Home() {
           </div>
         </div>
       </section> */}
-      {/* Hero Section */}  
+      {/* Hero Section */}
       <section className="relative h-screen w-full overflow-hidden">
         <img
           src="/home.jpeg"
@@ -75,6 +80,7 @@ export default function Home() {
           <p className="text-sm font-bold tracking-widest text-[#155eef]">
             ONE PLATFORM, THREE WORKFLOWS
           </p>
+
           <h2 className="mt-2 text-3xl font-extrabold">
             Logistics that works for everyone
           </h2>
@@ -107,6 +113,7 @@ export default function Home() {
               </div>
 
               <h3 className="mt-5 text-xl font-bold">{title}</h3>
+
               <p className="mt-2 leading-7 text-slate-500">{text}</p>
 
               <Link
@@ -131,6 +138,7 @@ export default function Home() {
           ].map(([value, label]) => (
             <div key={label}>
               <p className="text-4xl font-extrabold text-[#0b1a33]">{value}</p>
+
               <p className="mt-2 text-sm font-medium text-slate-500">{label}</p>
             </div>
           ))}
@@ -143,14 +151,17 @@ export default function Home() {
           <p className="text-sm font-bold tracking-widest text-[#155eef]">
             COMPLIANCE, WITHOUT THE CHAOS
           </p>
+
           <h2 className="mt-3 text-3xl font-extrabold">
             Freight documents where your team needs them.
           </h2>
+
           <p className="mt-4 leading-7 text-slate-500">
             Keep billing, GST-ready invoices and E-Way Bill preparation
             alongside each shipment. Your operational paperwork stays connected
             to the trip.
           </p>
+
           <Link
             to="/register"
             className="mt-6 inline-flex items-center gap-2 font-bold text-[#155eef]"
@@ -161,9 +172,11 @@ export default function Home() {
 
         <div className="rounded-3xl border border-blue-100 bg-blue-50 p-7">
           <FiShield size={30} className="text-[#155eef]" />
+
           <h3 className="mt-5 text-xl font-bold">
             Built for Indian road transport
           </h3>
+
           <ul className="mt-4 space-y-3 text-slate-600">
             {[
               "Road freight lanes across India",
@@ -176,6 +189,141 @@ export default function Home() {
               </li>
             ))}
           </ul>
+        </div>
+      </section>
+
+      {/*
+          Contact Us Section
+          Added:
+          Email: info@dishalogistic.in
+          Phone: 9169387909 / 6306239625
+          Branch: Gorakhpur
+          Social: Instagram / Facebook / LinkedIn
+     */}
+      <section className="mx-auto max-w-7xl px-5 pb-16">
+        <div className="overflow-hidden rounded-[2rem] bg-[#0b1a33] px-6 py-12 text-white shadow-xl sm:px-10 lg:px-14">
+          <div className="grid gap-10 lg:grid-cols-[1.1fr_.9fr] lg:items-center">
+            {/* Left Content */}
+            <div>
+              <p className="text-sm font-bold uppercase tracking-[0.2em] text-blue-300">
+                Get in touch
+              </p>
+
+              <h2 className="mt-3 text-3xl font-extrabold sm:text-4xl">
+                Let&apos;s move your business forward.
+              </h2>
+
+              <p className="mt-4 max-w-xl leading-7 text-slate-300">
+                Have a shipment requirement or want to know more about Disha
+                Logistics? Our team is ready to help.
+              </p>
+
+              {/* CTA Buttons */}
+              <div className="mt-7 flex flex-wrap gap-3">
+                <a
+                  href="mailto:info@dishalogistic.in"
+                  className="inline-flex items-center gap-2 rounded-xl bg-white px-5 py-3 font-bold text-[#0b1a33] transition hover:bg-blue-50"
+                >
+                  <FiMail />
+                  Email us
+                </a>
+
+                <a
+                  href="tel:9169387909"
+                  className="inline-flex items-center gap-2 rounded-xl border border-white/20 px-5 py-3 font-bold transition hover:bg-white/10"
+                >
+                  <FiPhone />
+                  Call us
+                </a>
+              </div>
+            </div>
+
+            {/* Right Contact Details */}
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
+              {/* Email */}
+              <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
+                <p className="text-sm text-slate-400">Mail us on</p>
+
+                <a
+                  href="mailto:info@dishalogistic.in"
+                  className="mt-1 block font-semibold transition hover:text-blue-300"
+                >
+                  info@dishalogistic.in
+                </a>
+              </div>
+
+              {/* Phone */}
+              <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
+                <p className="text-sm text-slate-400">Call us on</p>
+
+                <div className="mt-1 flex flex-wrap gap-x-4 gap-y-1 font-semibold">
+                  <a
+                    href="tel:9169387909"
+                    className="transition hover:text-blue-300"
+                  >
+                    9169387909
+                  </a>
+
+                  <a
+                    href="tel:6306239625"
+                    className="transition hover:text-blue-300"
+                  >
+                    6306239625
+                  </a>
+                </div>
+              </div>
+
+              {/* Social Media */}
+              <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
+                <p className="text-sm text-slate-400">Find us on</p>
+
+                <div className="mt-3 flex gap-3">
+                  {/* Instagram */}
+                  <a
+                    href="https://www.instagram.com/dishalogistics?igsh=MXBtenZ1ODZnOGk4ZQ=="
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label="Instagram"
+                    className="rounded-xl border border-white/10 p-3 transition hover:bg-white/10"
+                  >
+                    <FiInstagram size={20} />
+                  </a>
+
+                  {/* Facebook */}
+                  <a
+                    href="https://www.facebook.com/profile.php?id=61592903228244&utm_source=chatgpt.com"
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label="Facebook"
+                    className="rounded-xl border border-white/10 p-3 transition hover:bg-white/10"
+                  >
+                    <FiFacebook size={20} />
+                  </a>
+
+                  {/* LinkedIn */}
+                  <a
+                    href="https://linkedin.com/company/disha-logistics"
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label="LinkedIn"
+                    className="rounded-xl border border-white/10 p-3 transition hover:bg-white/10"
+                  >
+                    <FiLinkedin size={20} />
+                  </a>
+                </div>
+              </div>
+
+              {/* Branch */}
+              <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
+                <p className="text-sm text-slate-400">Branches</p>
+
+                <p className="mt-1 flex items-center gap-2 font-semibold">
+                  <FiMapPin className="text-blue-300" />
+                  Gorakhpur
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </div>
